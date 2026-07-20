@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   CATEGORY_OPTIONS,
   HIDE_LOAD_CATEGORIES,
@@ -10,6 +11,7 @@ import {
   formatMoney,
 } from '../../utils/billCalculator';
 import { cn } from '../../utils';
+import Button from '../ui/Button';
 
 const STORAGE_KEY = 'ap-electricity-bill-calculator-v1';
 
@@ -673,6 +675,12 @@ export default function BillCalculator() {
           >
             ⚡ Calculate My Bill
           </button>
+
+          <Link to="/pay" className="mt-2 block w-full">
+            <Button variant="outline" className="w-full py-3.5">
+              Pay Bill Links
+            </Button>
+          </Link>
         </div>
       </div>
 

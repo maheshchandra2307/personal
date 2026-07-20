@@ -1,11 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
+import NoticeMarquee from '../components/common/NoticeMarquee';
 import Footer from '../components/common/Footer';
 
 function MainLayout() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
+      <NoticeMarquee />
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
         <Outlet />
       </main>

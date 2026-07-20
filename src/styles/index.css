@@ -18,3 +18,18 @@
     @apply min-h-screen;
   }
 }
+
+@layer utilities {
+  @keyframes notice-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-notice-marquee {
+    animation: notice-marquee 28s linear infinite;
+  }
+}
