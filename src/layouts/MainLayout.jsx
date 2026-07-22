@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import NoticeMarquee from '../components/common/NoticeMarquee';
+import HelpChat from '../components/common/HelpChat';
 import Footer from '../components/common/Footer';
 
 function MainLayout() {
@@ -12,6 +13,7 @@ function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+      <HelpChat />
     </div>
   );
 }

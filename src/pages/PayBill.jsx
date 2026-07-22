@@ -1,6 +1,5 @@
 import DiscomCards from '../components/pay/DiscomCards';
 import DistrictFinder from '../components/pay/DistrictFinder';
-import HelpChat from '../components/pay/HelpChat';
 
 function PayBill() {
   return (
@@ -68,8 +67,6 @@ function PayBill() {
           For complaints, use the DISCOM helpline: 1912 (Toll Free)
         </span>
       </footer>
-
-      <HelpChat />
     </div>
   );
 }
