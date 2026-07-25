@@ -4,5 +4,16 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    // Vercel waits for the Node process to exit; Vite 8 can leave handles open on Linux builders.
+    {
+      name: 'force-exit-after-build',
+      apply: 'build',
+      closeBundle() {
+        setTimeout(() => process.exit(0), 0);
+      },
+    },
+  ],
 });

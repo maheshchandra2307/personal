@@ -28,7 +28,7 @@ export const DISCOMS = [
     hq: 'Vijayawada',
     theme: 'central',
     payUrl: 'https://www.apcpdcl.in/ConsumerDashboard/KnownBillPay',
-    payLabel: 'Pay APCPDCL Bill via Official Site',
+    payLabel: 'Go to APCPDCL Official Site',
     redirectNote: 'Opens apcpdcl.in in a new tab',
     helpline: '1912 | 18004251912',
     districts: [
