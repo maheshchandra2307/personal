@@ -12,6 +12,34 @@ import { CALCULATOR_TABS } from '../constants/tariffs';
 import { TARIFF_YEAR } from '../constants';
 import { cn } from '../utils';
 
+const FAQ_ITEMS = [
+  {
+    question: 'How do APERC electricity slabs work in Andhra Pradesh?',
+    answer:
+      'APERC LT tariffs use telescopic slabs for most domestic consumers. Your monthly units (kWh) are split across bands—for example the first block of units is billed at a lower energy charge, and higher usage moves into costlier slabs. Fixed/demand charges and other approved surcharges may apply on top of energy charges. This site applies the published APERC FY 2026-27 LT rates so you can see how each slab contributes to an estimate.',
+  },
+  {
+    question: 'What inputs do I need for an accurate estimate?',
+    answer:
+      'Use your billed units for the month (or the period you want to check), pick the matching LT category (domestic, commercial, industry, agriculture, and others), and enter connected load or demand where the tariff requires it. Time-of-Day (ToD) categories need peak/off-peak split if your meter records it. Closer inputs mean a closer estimate—your DISCOM bill remains the final amount.',
+  },
+  {
+    question: 'Why might my estimate differ from the DISCOM bill?',
+    answer:
+      'Official bills can include meter rent, electricity duty, subsidies, rebates, delayed payment surcharge, arrears, or temporary adjustments that are not always visible in a simple tariff table. Category mis-selection or wrong unit totals also change the result. Treat this tool as a planning estimate, then pay only on the official APEPDCL, APCPDCL, or APSPDCL portals.',
+  },
+  {
+    question: 'Which DISCOM serves my district?',
+    answer:
+      'Andhra Pradesh is served by APEPDCL (eastern districts), APCPDCL (central), and APSPDCL (southern). Use the Pay Bill page on this site to find your district and open the matching official payment link. Helplines and service-number tips are also available in the help chat.',
+  },
+  {
+    question: 'Is this an official APERC or government website?',
+    answer:
+      'No. This is an independent helper that mirrors published APERC LT tariff schedules for FY 2026-27. It is not affiliated with APERC, AP DISCOMs, or the Government of Andhra Pradesh. Always confirm rates and pay dues on official sources.',
+  },
+];
+
 function Home() {
   const [activeTab, setActiveTab] = useState('calc');
 
@@ -56,6 +84,102 @@ function Home() {
         {activeTab === 'others' ? <OthersTariff /> : null}
         {activeTab === 'charges' ? <OtherChargesTariff /> : null}
       </div>
+
+      <article className="mx-auto max-w-3xl space-y-10 px-6 py-10 text-[15px] leading-relaxed text-slate-600">
+        <section>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            How this AP electricity bill calculator works
+          </h2>
+          <p className="mt-4">
+            Andhra Pradesh electricity charges for low-tension (LT) consumers
+            are set by the Andhra Pradesh Electricity Regulatory Commission
+            (APERC). For {TARIFF_YEAR}, energy charges are applied in slabs
+            based on units consumed, with additional fixed or demand charges
+            depending on the consumer category. This calculator maps your
+            usage inputs to those published LT tariff schedules so you can
+            estimate the energy and fixed portions of a monthly bill before
+            you open your DISCOM statement.
+          </p>
+          <p className="mt-3">
+            Start on the Calculator tab: choose your category, enter units
+            (and load or ToD details when asked), then review the break-up of
+            slab-wise energy charges and other applicable components. The
+            Domestic, Commercial, Industry, Agriculture, and Others tabs show
+            the same APERC rate tables used by the engine, so you can compare
+            slabs without leaving the page. Other Charges covers items such as
+            delayed payment surcharge, reconnection, and meter-related fees
+            listed in the tariff order.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            Understanding APERC LT tariff slabs
+          </h2>
+          <p className="mt-4">
+            Domestic LT supply in Andhra Pradesh typically uses a telescopic
+            structure: lower monthly consumption stays in cheaper energy-charge
+            bands, while higher usage fills higher bands. Commercial and
+            industrial LT categories may use different slab edges, demand
+            charges, or Time-of-Day pricing. Agricultural and institutional
+            categories follow their own APERC schedules, including free or
+            concessional quotas where the tariff order provides them.
+          </p>
+          <p className="mt-3">
+            Knowing which slab your units fall into helps you plan usage—for
+            example, shifting non-essential load can keep a household below a
+            costlier threshold. Always match the category printed on your bill
+            (and your connected load) so the estimate reflects the correct
+            schedule. Rates on this site follow the APERC LT order for{' '}
+            {TARIFF_YEAR}, effective from 25 March 2026 as published for this
+            app.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            Tips for a useful estimate
+          </h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5">
+            <li>
+              Copy units from a recent bill or meter reading for the same
+              billing period you want to check.
+            </li>
+            <li>
+              Select the exact LT category shown on your bill—not a nearby
+              label that sounds similar.
+            </li>
+            <li>
+              Enter connected load or contracted demand when the form asks;
+              fixed or demand charges depend on it.
+            </li>
+            <li>
+              For ToD tariffs, split peak and off-peak units the way your meter
+              records them.
+            </li>
+            <li>
+              After estimating, pay only through official APEPDCL, APCPDCL, or
+              APSPDCL websites linked from the Pay Bill page.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            Frequently asked questions
+          </h2>
+          <div className="mt-6 space-y-6">
+            {FAQ_ITEMS.map((item) => (
+              <div key={item.question}>
+                <h3 className="font-display text-lg font-semibold text-slate-900">
+                  {item.question}
+                </h3>
+                <p className="mt-2">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </article>
 
       <div className="border-t border-slate-200 bg-slate-50 px-6 py-8 text-center text-[12px] leading-relaxed text-slate-400">
         <strong className="text-slate-600">Disclaimer:</strong> This calculator
