@@ -1,28 +1,54 @@
-import { FaBolt, FaGithub, FaPhoneAlt } from 'react-icons/fa';
+import { FaBolt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { APP_NAME, NAV_LINKS, TARIFF_YEAR } from '../../constants';
+import { APP_NAME, LEGAL_LINKS, NAV_LINKS, TARIFF_YEAR } from '../../constants';
+import { CONTACT_EMAIL, DISCOM_HELPLINE } from '../../constants/site';
+import { GUIDES } from '../../constants/guides';
+
+function FooterColumn({ title, children }) {
+  return (
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-wide text-white">
+        {title}
+      </p>
+      {children}
+    </div>
+  );
+}
 
 function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-slate-200 bg-slate-900 text-slate-300">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3 lg:px-8">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div>
           <p className="flex items-center gap-2 text-lg font-semibold text-white">
             <FaBolt className="text-amber-500" />
             {APP_NAME}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">
-            Unofficial APERC {TARIFF_YEAR} bill estimator and DISCOM payment
-            redirect helper for Andhra Pradesh consumers.
+            An independent, unofficial APERC {TARIFF_YEAR} bill estimator,
+            tariff reference and payment link helper for Andhra Pradesh
+            consumers. Not affiliated with APERC or any AP DISCOM.
           </p>
+          <ul className="mt-4 space-y-2 text-sm text-slate-400">
+            <li className="flex items-center gap-2">
+              <FaPhoneAlt className="shrink-0 text-amber-500" size={12} />
+              DISCOM helpline: {DISCOM_HELPLINE}
+            </li>
+            <li className="flex items-center gap-2">
+              <FaEnvelope className="shrink-0 text-amber-500" size={12} />
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="break-all transition-colors hover:text-white"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-white">
-            Navigation
-          </p>
+        <FooterColumn title="Navigation">
           <ul className="mt-3 space-y-2">
             {NAV_LINKS.map((link) => (
               <li key={link.path}>
@@ -35,27 +61,43 @@ function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </FooterColumn>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-white">
-            Useful
-          </p>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li className="flex items-center gap-2">
-              <FaPhoneAlt className="text-amber-500" size={12} />
-              DISCOM helpline: 1912
-            </li>
-            <li className="flex items-center gap-2">
-              <FaGithub className="text-amber-500" size={14} />
-              Independent / unofficial tool
-            </li>
+        <FooterColumn title="Guides">
+          <ul className="mt-3 space-y-2">
+            {GUIDES.map((guide) => (
+              <li key={guide.slug}>
+                <Link
+                  to={`/guides/${guide.slug}`}
+                  className="text-sm leading-snug transition-colors hover:text-white"
+                >
+                  {guide.title}
+                </Link>
+              </li>
+            ))}
           </ul>
-        </div>
+        </FooterColumn>
+
+        <FooterColumn title="Legal">
+          <ul className="mt-3 space-y-2">
+            {LEGAL_LINKS.map((link) => (
+              <li key={link.path}>
+                <Link
+                  to={link.path}
+                  className="text-sm transition-colors hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </FooterColumn>
       </div>
 
-      <div className="border-t border-slate-800 px-4 py-4 text-center text-sm text-slate-500">
-        © {year} {APP_NAME}. Not affiliated with APERC or AP DISCOMs.
+      <div className="border-t border-slate-800 px-4 py-5 text-center text-sm leading-relaxed text-slate-500">
+        © {year} {APP_NAME}. Estimates only — your official DISCOM bill is the
+        authoritative amount. Not affiliated with APERC, APSPDCL, APCPDCL,
+        APEPDCL or the Government of Andhra Pradesh.
       </div>
     </footer>
   );

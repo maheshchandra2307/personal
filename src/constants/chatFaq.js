@@ -173,23 +173,35 @@ function scoreKnowledgeEntry(entry, tokens, raw) {
   }
 
   // Phrase boosts for common intents
-  if (/surcharge|dps|delayed|late fee|25/.test(raw) && /dps|surcharge|25/.test(hay))
+  if (
+    /surcharge|dps|delayed|late fee|25/.test(raw) &&
+    /dps|surcharge|25/.test(hay)
+  )
     score += 8;
   if (/domestic|home|house|residential/.test(raw) && /domestic/.test(hay))
     score += 6;
   if (/commercial|shop|office/.test(raw) && /commercial/.test(hay)) score += 6;
-  if (/agricultur|farmer|free power|1200/.test(raw) && /agricultur|free/.test(hay))
+  if (
+    /agricultur|farmer|free power|1200/.test(raw) &&
+    /agricultur|free/.test(hay)
+  )
     score += 6;
   if (/industr|factory|tod|peak/.test(raw) && /industr|tod|peak/.test(hay))
     score += 5;
   if (/reconnec/.test(raw) && /reconnec/.test(hay)) score += 7;
   if (/reconnec/.test(raw) && /reconnec/.test(entry.title.toLowerCase()))
     score += 5;
-  if (/customer charge|service charge/.test(raw) && /customer charges/.test(hay))
+  if (
+    /customer charge|service charge/.test(raw) &&
+    /customer charges/.test(hay)
+  )
     score += 6;
   if (/meter test/.test(raw) && /meter testing/.test(hay)) score += 7;
   if (/temporary/.test(raw) && /temporary/.test(hay)) score += 5;
-  if (/ev|charging station|electric vehicle/.test(raw) && /electric vehicle|ev /.test(hay))
+  if (
+    /ev|charging station|electric vehicle/.test(raw) &&
+    /electric vehicle|ev /.test(hay)
+  )
     score += 6;
   if (/religious|temple|mosque|church/.test(raw) && /religious/.test(hay))
     score += 6;
@@ -213,9 +225,7 @@ function findTariffReply(message) {
   if (!ranked.length) return null;
 
   const top = ranked.slice(0, 2);
-  const parts = top.map(
-    ({ entry }) => `**${entry.title}**\n${entry.body}`
-  );
+  const parts = top.map(({ entry }) => `**${entry.title}**\n${entry.body}`);
 
   return `${parts.join('\n\n')}\n\n_Unofficial helper · Source: ${tariffKnowledge.source} (effective ${tariffKnowledge.effective}). Actual bill may differ._`;
 }

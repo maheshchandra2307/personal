@@ -4,6 +4,7 @@ import {
   FaHome,
   FaBolt,
 } from 'react-icons/fa';
+import Seo from '../components/common/Seo';
 
 const OFFICIAL_URL = 'https://pmsuryaghar.gov.in/#/';
 
@@ -58,6 +59,8 @@ function IndiaMapPattern() {
 function WhatsNew() {
   return (
     <div className="space-y-8">
+      <Seo path="/whats-new" />
+
       <section className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-10 sm:px-10 sm:py-12">
         <IndiaMapPattern />
 

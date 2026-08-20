@@ -1,9 +1,12 @@
 import DiscomCards from '../components/pay/DiscomCards';
 import DistrictFinder from '../components/pay/DistrictFinder';
+import Seo from '../components/common/Seo';
 
 function PayBill() {
   return (
     <div className="-mx-4 -mt-8 sm:-mx-6 lg:-mx-8">
+      <Seo path="/pay" />
+
       <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-[12px] font-semibold text-amber-800">
         ⚠️ This is an independent, unofficial links page — not run by AP DISCOMs
         or the AP Government. It only redirects you to the official payment

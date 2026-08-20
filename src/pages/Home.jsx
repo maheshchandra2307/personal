@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import BillCalculator from '../components/calculator/BillCalculator';
 import {
   AgricultureTariff,
@@ -8,8 +9,13 @@ import {
   OtherChargesTariff,
   OthersTariff,
 } from '../components/tariff/TariffPanels';
+import Seo from '../components/common/Seo';
+import JsonLd from '../components/content/JsonLd';
 import { CALCULATOR_TABS } from '../constants/tariffs';
-import { TARIFF_YEAR } from '../constants';
+import { APP_NAME, TARIFF_YEAR } from '../constants';
+import { GUIDES } from '../constants/guides';
+import { DISCOM_PROFILES } from '../constants/discomProfiles';
+import { SITE_URL } from '../constants/site';
 import { cn } from '../utils';
 
 const FAQ_ITEMS = [
@@ -40,11 +46,35 @@ const FAQ_ITEMS = [
   },
 ];
 
+const STRUCTURED_DATA = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: APP_NAME,
+    url: SITE_URL,
+    inLanguage: 'en-IN',
+    description:
+      'Independent Andhra Pradesh electricity bill calculator and tariff reference based on the APERC low-tension schedule.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+];
+
 function Home() {
   const [activeTab, setActiveTab] = useState('calc');
 
   return (
     <div className="-mx-4 -mt-8 sm:-mx-6 lg:-mx-8">
+      <Seo path="/" />
+      <JsonLd data={STRUCTURED_DATA} />
+
       <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50 to-slate-50 px-6 pb-10 pt-14 text-center">
         <div className="pointer-events-none absolute left-1/2 top-[-100px] h-[400px] w-[600px] -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(37,99,235,0.08)_0%,transparent_70%)]" />
         <h1 className="font-display relative mx-auto max-w-3xl bg-gradient-to-br from-slate-900 from-30% to-blue-600 bg-clip-text text-[clamp(28px,5vw,48px)] font-bold leading-tight text-transparent">
@@ -95,14 +125,14 @@ function Home() {
             are set by the Andhra Pradesh Electricity Regulatory Commission
             (APERC). For {TARIFF_YEAR}, energy charges are applied in slabs
             based on units consumed, with additional fixed or demand charges
-            depending on the consumer category. This calculator maps your
-            usage inputs to those published LT tariff schedules so you can
-            estimate the energy and fixed portions of a monthly bill before
-            you open your DISCOM statement.
+            depending on the consumer category. This calculator maps your usage
+            inputs to those published LT tariff schedules so you can estimate
+            the energy and fixed portions of a monthly bill before you open your
+            DISCOM statement.
           </p>
           <p className="mt-3">
-            Start on the Calculator tab: choose your category, enter units
-            (and load or ToD details when asked), then review the break-up of
+            Start on the Calculator tab: choose your category, enter units (and
+            load or ToD details when asked), then review the break-up of
             slab-wise energy charges and other applicable components. The
             Domestic, Commercial, Industry, Agriculture, and Others tabs show
             the same APERC rate tables used by the engine, so you can compare
@@ -146,8 +176,8 @@ function Home() {
               billing period you want to check.
             </li>
             <li>
-              Select the exact LT category shown on your bill—not a nearby
-              label that sounds similar.
+              Select the exact LT category shown on your bill—not a nearby label
+              that sounds similar.
             </li>
             <li>
               Enter connected load or contracted demand when the form asks;
@@ -181,11 +211,86 @@ function Home() {
         </section>
       </article>
 
+      <section className="border-t border-slate-200 bg-slate-50 px-6 py-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            Learn how AP electricity billing works
+          </h2>
+          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-slate-600">
+            The calculator gives you a number. These guides explain where that
+            number comes from — the arithmetic behind a bill, what each field on
+            your bill means, how the regulator sets rates, and what a saved unit
+            is actually worth to you.
+          </p>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {GUIDES.map((guide) => (
+              <Link
+                key={guide.slug}
+                to={`/guides/${guide.slug}`}
+                className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 transition hover:border-amber-300 hover:shadow-md"
+              >
+                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-600">
+                  {guide.category}
+                </span>
+                <span className="font-display mt-1.5 text-[15px] font-semibold leading-snug text-slate-900 group-hover:text-amber-700">
+                  {guide.title}
+                </span>
+                <span className="mt-2 flex-1 text-[13px] leading-relaxed text-slate-500">
+                  {guide.excerpt}
+                </span>
+                <span className="mt-3 text-[12px] text-slate-400">
+                  {guide.readingTime}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-10 border-t border-slate-200 pt-8">
+            <h3 className="font-display text-lg font-bold text-slate-900">
+              Your distribution company
+            </h3>
+            <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-slate-600">
+              Andhra Pradesh has three DISCOMs. Tariffs are the same in all
+              three because APERC sets them state-wide, but the offices, portals
+              and helplines differ.
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-2.5">
+              {DISCOM_PROFILES.map((profile) => (
+                <li key={profile.id}>
+                  <Link
+                    to={`/discoms/${profile.slug}`}
+                    className="inline-block rounded-full border border-slate-300 bg-white px-4 py-2 text-[13px] font-medium text-slate-700 transition hover:border-blue-400 hover:text-blue-700"
+                  >
+                    {profile.acronym}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/discoms"
+                  className="inline-block rounded-full border border-slate-300 bg-white px-4 py-2 text-[13px] font-medium text-slate-700 transition hover:border-blue-400 hover:text-blue-700"
+                >
+                  Compare all three
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <div className="border-t border-slate-200 bg-slate-50 px-6 py-8 text-center text-[12px] leading-relaxed text-slate-400">
         <strong className="text-slate-600">Disclaimer:</strong> This calculator
         is for estimation based on APERC {TARIFF_YEAR} tariff values shown in
         this app. Actual bills may include utility-specific adjustments, taxes,
-        rebates, meter rent, or subsidy conditions.
+        rebates, meter rent, or subsidy conditions.{' '}
+        <Link
+          to="/disclaimer"
+          className="font-medium text-slate-500 underline underline-offset-2 hover:text-slate-700"
+        >
+          Read the full disclaimer
+        </Link>
+        .
       </div>
     </div>
   );

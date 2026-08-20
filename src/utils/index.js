@@ -20,6 +20,19 @@ export function formatDate(value) {
   }).format(new Date(value));
 }
 
+/**
+ * Format a date for editorial "last updated" lines, e.g. "20 August 2026".
+ * @param {string|number|Date} value
+ * @returns {string}
+ */
+export function formatLongDate(value) {
+  return new Intl.DateTimeFormat('en-IN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(value));
+}
+
 export {
   formatMoney,
   calculateBill,

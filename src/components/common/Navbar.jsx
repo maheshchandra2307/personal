@@ -32,7 +32,7 @@ function Navbar() {
           </div>
         </Link>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <ul className="flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.path}>
@@ -57,7 +57,7 @@ function Navbar() {
 
         <button
           type="button"
-          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 md:hidden"
+          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((open) => !open)}
@@ -67,7 +67,7 @@ function Navbar() {
       </nav>
 
       {isOpen ? (
-        <ul className="space-y-1 border-t border-slate-200 px-4 py-3 md:hidden">
+        <ul className="space-y-1 border-t border-slate-200 px-4 py-3 lg:hidden">
           {NAV_LINKS.map((link) => (
             <li key={link.path}>
               <NavLink
