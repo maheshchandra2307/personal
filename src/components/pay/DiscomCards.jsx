@@ -1,4 +1,5 @@
 import { DISCOMS } from '../../constants/discoms';
+import { useI18n } from '../../context/AppContext';
 import { cn } from '../../utils';
 
 const themeStyles = {
@@ -49,6 +50,7 @@ function openPortal(url) {
 }
 
 export default function DiscomCards() {
+  const { t } = useI18n();
   return (
     <div className="grid gap-7 sm:grid-cols-2 xl:grid-cols-3">
       {DISCOMS.map((discom) => {
@@ -59,7 +61,7 @@ export default function DiscomCards() {
             key={discom.id}
             role="button"
             tabIndex={0}
-            aria-label={`Go to official ${discom.acronym} bill payment site`}
+            aria-label={t('pay.payAria', { acronym: discom.acronym })}
             onClick={() => openPortal(discom.payUrl)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -98,14 +100,14 @@ export default function DiscomCards() {
                     theme.tag
                   )}
                 >
-                  HQ: {discom.hq}
+                  {t('pay.hq', { place: discom.hq })}
                 </span>
               </div>
             </div>
 
             <div className="flex-1 px-5 py-3.5">
               <div className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-wide text-slate-400 after:ml-1 after:h-px after:flex-1 after:bg-slate-200">
-                Districts Covered
+                {t('pay.districtsCovered')}
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {discom.districts.map((district) => (
@@ -133,13 +135,13 @@ export default function DiscomCards() {
               )}
             >
               <WalletIcon />
-              {discom.payLabel}
+              {t('pay.goOfficial', { acronym: discom.acronym })}
             </a>
             <div className="px-5 text-center text-[10px] text-slate-400">
-              {discom.redirectNote}
+              {t('pay.opensTab', { host: new URL(discom.payUrl).hostname })}
             </div>
             <div className="px-5 pb-4 pt-1 text-center text-[11px] text-slate-500">
-              Helpline:{' '}
+              {t('pay.helpline')}{' '}
               <strong className="text-slate-700">{discom.helpline}</strong>
             </div>
           </div>

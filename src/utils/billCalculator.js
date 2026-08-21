@@ -99,7 +99,7 @@ export function calculateBill({
   let customer = 0;
   let subsidy = 0;
   let extras = 0;
-  let caption = 'Including energy and fixed charges';
+  let captionKey = 'default';
   let parts = [];
 
   if (!conf) {
@@ -118,13 +118,21 @@ export function calculateBill({
       const minimum = conf.minCharge(phase);
       if (subtotal < minimum) {
         extras += minimum - subtotal;
-        caption = 'Minimum monthly charge applied where required';
+        captionKey = 'minimum';
       }
     }
   } else if (conf.type === 'flat') {
     fixed = conf.fixed(load);
     energy = units * conf.rate;
-    parts = [{ label: 'All units', units, rate: conf.rate, cost: energy }];
+    parts = [
+      {
+        labelKey: 'allUnits',
+        label: 'All units',
+        units,
+        rate: conf.rate,
+        cost: energy,
+      },
+    ];
 
     if (conf.minBill && energy + fixed < conf.minBill) {
       extras += conf.minBill - (energy + fixed);
@@ -154,37 +162,41 @@ export function calculateBill({
 
     parts = [
       {
+        labelKey: 'normal',
         label: 'Normal',
         units: normalUnits,
         rate: conf.normal,
         cost: normalUnits * conf.normal,
       },
       {
+        labelKey: 'peak',
         label: 'Peak',
         units: peakUnits,
         rate: peakRate,
         cost: peakUnits * peakRate,
       },
       {
+        labelKey: 'offPeak',
         label: 'Off-peak',
         units: offUnits,
         rate: offRate,
         cost: offUnits * offRate,
       },
     ];
-    caption = 'Time-of-day estimate based on your usage split';
+    captionKey = 'tod';
   } else if (conf.type === 'agri_corp') {
     const rate = dsm ? conf.withDSM : conf.withoutDSM;
     energy = units * rate;
     parts = [
       {
+        labelKey: dsm ? 'withDsm' : 'withoutDsm',
         label: dsm ? 'With DSM' : 'Without DSM',
         units,
         rate,
         cost: energy,
       },
     ];
-    caption = 'Corporate agriculture rate selected';
+    captionKey = 'agriCorp';
   } else if (conf.type === 'free_limit') {
     const freeMonthly = (conf.annualFreePerHP * load) / 12;
     const billedUnits = Math.max(0, units - freeMonthly);
@@ -192,21 +204,21 @@ export function calculateBill({
     energy = billedUnits * conf.excessRate;
     parts = [
       {
+        labelKey: 'freeQuota',
         label: 'Free quota',
         units: Math.min(units, freeMonthly),
         rate: 0,
         cost: 0,
       },
       {
+        labelKey: 'excess',
         label: 'Excess units',
         units: billedUnits,
         rate: conf.excessRate,
         cost: energy,
       },
     ];
-    caption = urban
-      ? 'Monthly estimate from annual free quota.'
-      : 'Rural users may have different excess treatment; this estimate uses the shown excess rate.';
+    captionKey = urban ? 'freeUrban' : 'freeRural';
   }
 
   const total = Math.max(0, energy + fixed + customer + extras);
@@ -218,7 +230,7 @@ export function calculateBill({
     subsidy,
     extras,
     total,
-    caption,
+    captionKey,
     parts,
     units,
     avgRate: units ? total / units : 0,

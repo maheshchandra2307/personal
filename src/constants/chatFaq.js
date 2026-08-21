@@ -1,16 +1,26 @@
 import tariffKnowledge from './tariffChatKnowledge.json';
 
-export const CHAT_QUICK_REPLIES = [
-  'Domestic rates',
-  'Surcharge ₹25',
-  'Which DISCOM?',
-  'How to pay',
-  'Agriculture free',
-  'Helpline',
+export const CHAT_QUICK_REPLY_IDS = [
+  'domesticRates',
+  'surcharge',
+  'whichDiscom',
+  'howToPay',
+  'agriFree',
+  'helpline',
 ];
+
+export const CHAT_QUICK_CANONICAL = {
+  domesticRates: 'Domestic rates',
+  surcharge: 'Surcharge ₹25',
+  whichDiscom: 'Which DISCOM?',
+  howToPay: 'How to pay',
+  agriFree: 'Agriculture free',
+  helpline: 'Helpline',
+};
 
 export const CHAT_FAQ = [
   {
+    id: 'apepdcl',
     keys: [
       'apepdcl',
       'eastern',
@@ -20,11 +30,17 @@ export const CHAT_FAQ = [
       'godavari',
       'srikakulam',
       'eluru',
+      'తూర్పు',
+      'విశాఖ',
+      'విశాఖపట్నం',
+      'కాకినాడ',
+      'గోదావరి',
+      'శ్రీకాకుళం',
+      'ఏలూరు',
     ],
-    reply:
-      'APEPDCL (Eastern Power) covers Srikakulam, Vizianagaram, Visakhapatnam, Anakapalli, Kakinada, East/West Godavari, Konaseema, Eluru and nearby districts.\n\nOpen the Pay Bill page and tap the APEPDCL card to go to its official payment site.',
   },
   {
+    id: 'apcpdcl',
     keys: [
       'apcpdcl',
       'central',
@@ -34,11 +50,17 @@ export const CHAT_FAQ = [
       'prakasam',
       'palnadu',
       'bapatla',
+      'మధ్య',
+      'విజయవాడ',
+      'గుంటూరు',
+      'కృష్ణా',
+      'ప్రకాశం',
+      'పల్నాడు',
+      'బాపట్ల',
     ],
-    reply:
-      'APCPDCL (Central Power) covers Krishna (NTR), Guntur, Bapatla, Palnadu, Prakasam and Markapuram.\n\nOpen the Pay Bill page and tap the APCPDCL card — it opens the Paytm bill payment page for APCPDCL.',
   },
   {
+    id: 'apspdcl',
     keys: [
       'apspdcl',
       'southern',
@@ -48,44 +70,54 @@ export const CHAT_FAQ = [
       'kurnool',
       'nellore',
       'anantapur',
+      'దక్షిణ',
+      'తిరుపతి',
+      'చిత్తూరు',
+      'కడప',
+      'కర్నూలు',
+      'నెల్లూరు',
+      'అనంతపురం',
     ],
-    reply:
-      'APSPDCL (Southern Power) covers Tirupati, Chittoor, Annamayya, YSR Kadapa, Anantapuramu, Sri Sathya Sai, Kurnool, Nandyal and SPSR Nellore.\n\nOpen the Pay Bill page and tap the APSPDCL card to go to its official payment site.',
   },
   {
+    id: 'whichDiscom',
     keys: [
       'which discom',
       'which company',
       'my district',
       'find discom',
       'my discom',
+      'ఏ డిస్కమ్',
+      'నా జిల్లా',
+      'ఏ సంస్థ',
     ],
-    reply:
-      'Tell me your district and I can point you to the right DISCOM — or open Pay Bill and check the district tags on each card.',
   },
   {
+    id: 'serviceNumber',
     keys: [
       'service number',
       'service no',
       'account number',
       'consumer number',
       'usc',
+      'సర్వీస్ నంబర్',
+      'ఖాతా నంబర్',
     ],
-    reply:
-      "Your Service Number is a 13-digit number printed on your latest electricity bill, usually near the top labeled 'Service No.' or 'Unique Service Number (USC)'.",
   },
   {
+    id: 'howToPay',
     keys: [
       'how to pay',
       'pay bill',
       'payment method',
       'how do i pay',
       'steps to pay',
+      'ఎలా చెల్లించాలి',
+      'బిల్లు చెల్లింపు',
     ],
-    reply:
-      'To pay your bill:\n1. Open Pay Bill and tap your DISCOM card\n2. You will land on the official DISCOM/BillDesk page\n3. Enter your 13-digit Service Number\n4. Complete the captcha\n5. Verify the bill amount shown\n6. Pay via UPI, Net Banking, or Debit/Credit Card\n\nTip: Pay within 14–15 days of the bill date to avoid delayed payment surcharge (₹25 for many domestic/small LT categories).',
   },
   {
+    id: 'helpline',
     keys: [
       'helpline',
       'phone number',
@@ -93,11 +125,12 @@ export const CHAT_FAQ = [
       'customer care',
       'toll free',
       '1912',
+      'హెల్ప్‌లైన్',
+      'ఫోన్',
     ],
-    reply:
-      'Common AP DISCOM helpline: 1912 (toll-free) or 1800-425-1912.\nAPSPDCL also has 1800-425-5333.\nThese connect you to the official DISCOM, not to this app.',
   },
   {
+    id: 'complaint',
     keys: [
       'complaint',
       'power cut',
@@ -105,24 +138,35 @@ export const CHAT_FAQ = [
       'no power',
       'meter issue',
       'fault',
+      'ఫిర్యాదు',
+      'కరెంటు కోత',
+      'మీటర్',
     ],
-    reply:
-      'For power cuts, meter issues, or complaints, call 1912 (toll-free) to reach your DISCOM.\nYou can also use the official DISCOM apps/portals for outage complaints. This app only helps with bill estimates and payment redirects.',
   },
   {
-    keys: ['calculate', 'calculator', 'estimate', 'bill amount'],
-    reply:
-      'Use the Calculator page to estimate your monthly bill with APERC FY 2026-27 rates. Select your consumer category, enter load and units, then tap Calculate.\n\nAsk me about domestic slabs, commercial rates, agriculture free quota, surcharge, or reconnection charges from the tariff Excel.',
+    id: 'calculate',
+    keys: [
+      'calculate',
+      'calculator',
+      'estimate',
+      'bill amount',
+      'లెక్కించు',
+      'కాలిక్యులేటర్',
+      'అంచనా',
+    ],
   },
   {
-    keys: ['unofficial', 'affiliate', 'government', 'official'],
-    reply:
-      'This is an independent, unofficial helper. It is not run by AP DISCOMs or the AP Government. Payments happen only on official DISCOM/BillDesk sites.',
+    id: 'unofficial',
+    keys: [
+      'unofficial',
+      'affiliate',
+      'government',
+      'official',
+      'అనధికారిక',
+      'ప్రభుత్వ',
+    ],
   },
 ];
-
-export const CHAT_FALLBACK =
-  "I can answer from APERC LT Tariff FY 2026-27 (your Excel) plus DISCOM / payment help.\n\nTry: 'Domestic rates', 'Surcharge ₹25', 'Agriculture free', 'Which DISCOM?', or 'How to pay'.";
 
 const STOP_WORDS = new Set([
   'the',
@@ -157,7 +201,7 @@ function tokenize(text) {
   return text
     .toLowerCase()
     .replace(/₹/g, 'rs ')
-    .replace(/[^a-z0-9.\-\/\s]/g, ' ')
+    .replace(/[^a-z0-9.\-/\s\u0c00-\u0c7f]/g, ' ')
     .split(/\s+/)
     .filter((w) => w.length >= 2 && !STOP_WORDS.has(w));
 }
@@ -230,12 +274,11 @@ function findTariffReply(message) {
   return `${parts.join('\n\n')}\n\n_Unofficial helper · Source: ${tariffKnowledge.source} (effective ${tariffKnowledge.effective}). Actual bill may differ._`;
 }
 
-function findFaqReply(message) {
+function findFaqItem(message) {
   const text = message.toLowerCase().trim();
-  const match = CHAT_FAQ.find((item) =>
-    item.keys.some((key) => text.includes(key))
+  return (
+    CHAT_FAQ.find((item) => item.keys.some((key) => text.includes(key))) || null
   );
-  return match?.reply || null;
 }
 
 /** Strip markdown bold for plain chat bubbles */
@@ -243,11 +286,15 @@ function toPlainText(text) {
   return text.replace(/\*\*/g, '');
 }
 
-export function getChatReply(message) {
-  const text = message.trim();
-  if (!text) return CHAT_FALLBACK;
+function faqText(item, t) {
+  if (!item) return null;
+  return t(`chat.replies.${item.id}`);
+}
 
-  // Prefer FAQ for DISCOM / pay / helpline intents
+export function getChatReply(message, t) {
+  const text = message.trim();
+  if (!text) return t('chat.fallback');
+
   const faqFirstKeys = [
     'discom',
     'apepdcl',
@@ -259,18 +306,22 @@ export function getChatReply(message) {
     '1912',
     'service number',
     'district',
+    'డిస్కమ్',
+    'చెల్లింపు',
+    'హెల్ప్',
+    'జిల్లా',
   ];
   const lower = text.toLowerCase();
   if (faqFirstKeys.some((k) => lower.includes(k))) {
-    const faq = findFaqReply(text);
+    const faq = faqText(findFaqItem(text), t);
     if (faq) return faq;
   }
 
   const tariff = findTariffReply(text);
   if (tariff) return toPlainText(tariff);
 
-  const faq = findFaqReply(text);
+  const faq = faqText(findFaqItem(text), t);
   if (faq) return faq;
 
-  return CHAT_FALLBACK;
+  return t('chat.fallback');
 }

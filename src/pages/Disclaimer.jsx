@@ -10,6 +10,8 @@ import {
   TARIFF_EFFECTIVE_DATE,
 } from '../constants/site';
 import { formatLongDate } from '../utils';
+import { useI18n } from '../context/AppContext';
+import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
 const SECTIONS = [
   {
@@ -118,16 +120,22 @@ const SECTIONS = [
 ];
 
 function Disclaimer() {
+  const { t, locale } = useI18n();
+
   return (
     <div className="space-y-8">
       <Seo path="/disclaimer" />
 
       <PageHeader
-        eyebrow="Legal"
-        title="Disclaimer"
-        lead="An unofficial estimator, not a billing system. This page sets out plainly what this site is, what its numbers mean, and where its limits are."
-        meta={`Last updated ${formatLongDate(POLICY_UPDATED)}`}
+        eyebrow={t('legalPage.disclaimerEyebrow')}
+        title={t('legalPage.disclaimerTitle')}
+        lead={t('legalPage.disclaimerLead')}
+        meta={t('common.updated', {
+          date: formatLongDate(POLICY_UPDATED, locale),
+        })}
       />
+
+      <ContentLanguageNote />
 
       <article className="max-w-3xl text-[15px] leading-relaxed text-slate-600">
         <ContentBlocks sections={SECTIONS} />
@@ -139,23 +147,16 @@ function Disclaimer() {
           to="/terms"
           className="font-medium text-amber-700 underline underline-offset-2"
         >
-          Terms of Service
+          {t('legal.terms')}
         </Link>{' '}
         and{' '}
         <Link
           to="/privacy-policy"
           className="font-medium text-amber-700 underline underline-offset-2"
         >
-          Privacy Policy
+          {t('legal.privacy')}
         </Link>
-        . The{' '}
-        <Link
-          to="/about"
-          className="font-medium text-amber-700 underline underline-offset-2"
-        >
-          About page
-        </Link>{' '}
-        explains how the calculator works and where the tariff data comes from.
+        .
       </p>
     </div>
   );

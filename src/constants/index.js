@@ -6,20 +6,29 @@ export const APP_VERSION = '1.0.0';
 export const TARIFF_YEAR = 'FY 2026-27';
 
 export const NAV_LINKS = [
-  { label: 'Calculator', path: '/' },
-  { label: 'Pay Bill', path: '/pay' },
-  { label: 'Guides', path: '/guides' },
-  { label: 'DISCOMs', path: '/discoms' },
-  { label: "What's New", path: '/whats-new' },
-  { label: 'About', path: '/about' },
+  { labelKey: 'nav.calculator', path: '/' },
+  { labelKey: 'nav.payBill', path: '/pay' },
+  { labelKey: 'nav.guides', path: '/guides' },
+  { labelKey: 'nav.discoms', path: '/discoms' },
+  { labelKey: 'nav.whatsNew', path: '/whats-new' },
+  { labelKey: 'nav.about', path: '/about' },
 ];
 
 export const LEGAL_LINKS = [
-  { label: 'Privacy Policy', path: '/privacy-policy' },
-  { label: 'Terms of Service', path: '/terms' },
-  { label: 'Disclaimer', path: '/disclaimer' },
-  { label: 'Contact Us', path: '/contact' },
+  { labelKey: 'legal.privacy', path: '/privacy-policy' },
+  { labelKey: 'legal.terms', path: '/terms' },
+  { labelKey: 'legal.disclaimer', path: '/disclaimer' },
+  { labelKey: 'legal.contact', path: '/contact' },
 ];
+
+export const CATEGORY_GROUP_KEYS = {
+  Domestic: 'groups.domestic',
+  Commercial: 'groups.commercial',
+  'Industry LT': 'groups.industry',
+  Institutional: 'groups.institutional',
+  Agriculture: 'groups.agriculture',
+  Temporary: 'groups.temporary',
+};
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || 'https://jsonplaceholder.typicode.com';

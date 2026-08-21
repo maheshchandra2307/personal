@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { APP_NAME, APP_TAGLINE, NAV_LINKS } from '../../constants';
+import { APP_NAME, NAV_LINKS } from '../../constants';
+import { useI18n } from '../../context/AppContext';
 import { cn } from '../../utils';
+import LanguageSwitcher from './LanguageSwitcher';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useI18n();
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 shadow-sm backdrop-blur-xl">
@@ -27,7 +30,7 @@ function Navbar() {
               {APP_NAME}
             </div>
             <div className="text-[10px] font-normal uppercase tracking-wide text-slate-400">
-              {APP_TAGLINE}
+              {t('app.tagline')}
             </div>
           </div>
         </Link>
@@ -48,22 +51,26 @@ function Navbar() {
                     )
                   }
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </NavLink>
               </li>
             ))}
           </ul>
+          <LanguageSwitcher />
         </div>
 
-        <button
-          type="button"
-          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((open) => !open)}
-        >
-          {isOpen ? <HiX size={22} /> : <HiMenu size={22} />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            className="rounded-lg p-2 text-slate-700 hover:bg-slate-100"
+            aria-label={isOpen ? t('nav.closeMenu') : t('nav.openMenu')}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((open) => !open)}
+          >
+            {isOpen ? <HiX size={22} /> : <HiMenu size={22} />}
+          </button>
+        </div>
       </nav>
 
       {isOpen ? (
@@ -83,7 +90,7 @@ function Navbar() {
                   )
                 }
               >
-                {link.label}
+                {t(link.labelKey)}
               </NavLink>
             </li>
           ))}

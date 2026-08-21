@@ -2,8 +2,10 @@ import Seo from '../components/common/Seo';
 import PageHeader from '../components/content/PageHeader';
 import ContentBlocks from '../components/content/ContentBlocks';
 import { APP_NAME } from '../constants';
-import { CONTACT_EMAIL, POLICY_UPDATED, SITE_DOMAIN } from '../constants/site';
+import { CONTACT_EMAIL, POLICY_UPDATED } from '../constants/site';
 import { formatLongDate } from '../utils';
+import { useI18n } from '../context/AppContext';
+import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
 const SECTIONS = [
   {
@@ -170,16 +172,22 @@ const SECTIONS = [
 ];
 
 function LegalPrivacy() {
+  const { t, locale } = useI18n();
+
   return (
     <div className="space-y-8">
       <Seo path="/privacy-policy" />
 
       <PageHeader
-        eyebrow="Legal"
-        title="Privacy Policy"
-        lead={`How ${SITE_DOMAIN} handles information: what the calculator does and does not store, the cookies set by third-party advertising, and the choices available to you.`}
-        meta={`Last updated ${formatLongDate(POLICY_UPDATED)}`}
+        eyebrow={t('legalPage.privacyEyebrow')}
+        title={t('legalPage.privacyTitle')}
+        lead={t('legalPage.privacyLead')}
+        meta={t('common.updated', {
+          date: formatLongDate(POLICY_UPDATED, locale),
+        })}
       />
+
+      <ContentLanguageNote />
 
       <article className="max-w-3xl text-[15px] leading-relaxed text-slate-600">
         <ContentBlocks sections={SECTIONS} />

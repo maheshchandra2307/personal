@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { FaEnvelope, FaPhoneAlt, FaExternalLinkAlt } from 'react-icons/fa';
 import Seo from '../components/common/Seo';
 import PageHeader from '../components/content/PageHeader';
@@ -11,6 +10,8 @@ import {
   POLICY_UPDATED,
 } from '../constants/site';
 import { formatLongDate } from '../utils';
+import { useI18n } from '../context/AppContext';
+import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
 const SECTIONS = [
   {
@@ -80,15 +81,19 @@ const SECTIONS = [
 ];
 
 function Contact() {
+  const { t, locale } = useI18n();
+
   return (
     <div className="space-y-8">
       <Seo path="/contact" />
 
       <PageHeader
-        eyebrow="Contact"
-        title="Contact us"
-        lead="Questions about the site, corrections to the tariff data, or anything that looks broken — this is the place. For anything concerning your own electricity connection, your DISCOM is the only body that can help."
-        meta={`Last reviewed ${formatLongDate(POLICY_UPDATED)}`}
+        eyebrow={t('contactPage.eyebrow')}
+        title={t('contactPage.title')}
+        lead={t('contactPage.lead')}
+        meta={t('common.lastReviewed', {
+          date: formatLongDate(POLICY_UPDATED, locale),
+        })}
       />
 
       <section className="grid gap-4 sm:grid-cols-2">
@@ -97,11 +102,10 @@ function Contact() {
             <FaEnvelope size={16} />
           </div>
           <h2 className="font-display text-lg font-semibold text-slate-900">
-            Email us
+            {t('contactPage.emailUs')}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            The best way to reach us about anything on this site, including
-            tariff corrections.
+            {t('contactPage.emailLead')}
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
@@ -110,7 +114,7 @@ function Contact() {
             {CONTACT_EMAIL}
           </a>
           <p className="mt-3 text-[12px] text-slate-400">
-            Typical reply time: {CONTACT_RESPONSE_TIME}
+            {t('contactPage.replyTime', { time: CONTACT_RESPONSE_TIME })}
           </p>
         </div>
 
@@ -119,20 +123,21 @@ function Contact() {
             <FaPhoneAlt size={16} />
           </div>
           <h2 className="font-display text-lg font-semibold text-slate-900">
-            Your DISCOM
+            {t('contactPage.yourDiscom')}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            For bills, meters, outages, new connections and complaints — the
-            only route that can actually resolve them.
+            {t('contactPage.discomLead')}
           </p>
           <p className="mt-4 font-display text-2xl font-bold text-slate-900">
             {DISCOM_HELPLINE}
           </p>
           <p className="mt-1 text-[12px] text-slate-400">
-            Toll free, all AP distribution companies
+            {t('contactPage.tollFree')}
           </p>
         </div>
       </section>
+
+      <ContentLanguageNote />
 
       <article className="max-w-3xl text-[15px] leading-relaxed text-slate-600">
         <ContentBlocks sections={SECTIONS} />
@@ -140,11 +145,10 @@ function Contact() {
 
       <section className="max-w-3xl">
         <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
-          Official websites
+          {t('contactPage.officialSites')}
         </h2>
         <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
-          Authoritative sources for tariffs, payments and consumer services.
-          These open in a new tab and are not operated by us.
+          {t('contactPage.officialLead')}
         </p>
         <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
           {OFFICIAL_LINKS.map((link) => (
@@ -164,22 +168,7 @@ function Contact() {
       </section>
 
       <p className="max-w-3xl border-t border-slate-200 pt-8 text-[13px] leading-relaxed text-slate-500">
-        Before writing in, it may be quicker to check the{' '}
-        <Link
-          to="/guides"
-          className="font-medium text-amber-700 underline underline-offset-2"
-        >
-          guides
-        </Link>
-        , which cover how bills are calculated, how to read each field on your
-        bill, and what the tariff slabs mean. Our{' '}
-        <Link
-          to="/disclaimer"
-          className="font-medium text-amber-700 underline underline-offset-2"
-        >
-          disclaimer
-        </Link>{' '}
-        explains the limits of what this tool can tell you.
+        {t('contactPage.beforeWriting')}
       </p>
     </div>
   );

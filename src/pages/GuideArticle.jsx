@@ -9,6 +9,8 @@ import { canonicalUrl } from '../constants/seo';
 import { APP_NAME } from '../constants';
 import { SITE_URL } from '../constants/site';
 import { formatLongDate } from '../utils';
+import { useI18n } from '../context/AppContext';
+import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
 function buildJsonLd(guide) {
   const url = canonicalUrl(`/guides/${guide.slug}`);
@@ -49,6 +51,7 @@ function buildJsonLd(guide) {
 function GuideArticle() {
   const { slug } = useParams();
   const guide = getGuideBySlug(slug);
+  const { t, locale } = useI18n();
 
   if (!guide) {
     return <NotFound />;
@@ -65,22 +68,27 @@ function GuideArticle() {
 
       <PageHeader
         breadcrumbs={[
-          { label: 'Home', path: '/' },
-          { label: 'Guides', path: '/guides' },
-          { label: guide.title, path: `/guides/${guide.slug}` },
+          { label: t('common.home'), path: '/' },
+          { label: t('nav.guides'), path: '/guides' },
+          {
+            label: t(`guides.items.${guide.slug}.title`),
+            path: `/guides/${guide.slug}`,
+          },
         ]}
-        eyebrow={guide.category}
-        title={guide.title}
+        eyebrow={t(`guides.cat.${guide.category}`)}
+        title={t(`guides.items.${guide.slug}.title`)}
         lead={guide.intro}
-        meta={`${guide.readingTime} · Updated ${formatLongDate(guide.updated)}`}
+        meta={`${t(`guides.items.${guide.slug}.readingTime`)} · ${t('common.updated', { date: formatLongDate(guide.updated, locale) })}`}
       />
 
+      <ContentLanguageNote />
+
       <nav
-        aria-label="On this page"
+        aria-label={t('guides.onThisPage')}
         className="max-w-3xl rounded-xl border border-slate-200 bg-slate-50 px-6 py-5"
       >
         <p className="font-display text-[12px] font-semibold uppercase tracking-wide text-slate-500">
-          On this page
+          {t('guides.onThisPage')}
         </p>
         <ol className="mt-3 space-y-1.5 text-[14px]">
           {guide.sections.map((section) => (
@@ -102,7 +110,7 @@ function GuideArticle() {
         {guide.faqs?.length ? (
           <section id="faqs" className="scroll-mt-24">
             <h2 className="font-display mt-12 text-2xl font-bold tracking-tight text-slate-900">
-              Frequently asked questions
+              {t('guides.faqs')}
             </h2>
             <div className="mt-5 space-y-6">
               {guide.faqs.map((faq) => (
@@ -121,7 +129,7 @@ function GuideArticle() {
       {related.length ? (
         <section className="max-w-3xl border-t border-slate-200 pt-8">
           <h2 className="font-display text-xl font-bold tracking-tight text-slate-900">
-            Continue reading
+            {t('guides.continue')}
           </h2>
           <ul className="mt-4 space-y-3">
             {related.map((item) => (
@@ -131,10 +139,10 @@ function GuideArticle() {
                   className="group block rounded-xl border border-slate-200 bg-white px-5 py-4 transition hover:border-amber-300"
                 >
                   <span className="font-display block text-[15px] font-semibold text-slate-900 group-hover:text-amber-700">
-                    {item.title}
+                    {t(`guides.items.${item.slug}.title`)}
                   </span>
                   <span className="mt-1 block text-[13px] leading-relaxed text-slate-500">
-                    {item.excerpt}
+                    {t(`guides.items.${item.slug}.excerpt`)}
                   </span>
                 </Link>
               </li>
@@ -144,22 +152,7 @@ function GuideArticle() {
       ) : null}
 
       <p className="max-w-3xl border-t border-slate-200 pt-8 text-[13px] leading-relaxed text-slate-500">
-        Want to try these numbers on your own bill? Open the{' '}
-        <Link
-          to="/"
-          className="font-medium text-amber-700 underline underline-offset-2"
-        >
-          calculator
-        </Link>
-        . This guide is general explanatory material, not professional advice —
-        see our{' '}
-        <Link
-          to="/disclaimer"
-          className="font-medium text-amber-700 underline underline-offset-2"
-        >
-          disclaimer
-        </Link>
-        .
+        {t('guides.tryNumbers')}
       </p>
     </div>
   );

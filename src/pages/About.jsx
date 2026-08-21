@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import Seo from '../components/common/Seo';
 import PageHeader from '../components/content/PageHeader';
 import ContentBlocks from '../components/content/ContentBlocks';
+import ContentLanguageNote from '../components/common/ContentLanguageNote';
 import Button from '../components/ui/Button';
 import { APP_NAME, TARIFF_YEAR } from '../constants';
+import { useI18n } from '../context/AppContext';
 import {
   CONTACT_EMAIL,
   POLICY_UPDATED,
@@ -126,16 +128,22 @@ const SECTIONS = [
 ];
 
 function About() {
+  const { t, locale } = useI18n();
+
   return (
     <div className="space-y-8">
       <Seo path="/about" />
 
       <PageHeader
-        eyebrow="About"
-        title={`About ${APP_NAME}`}
-        lead="An independent, unofficial tariff estimator and reference for Andhra Pradesh electricity consumers, built on the published APERC low-tension schedule."
-        meta={`Last reviewed ${formatLongDate(POLICY_UPDATED)}`}
+        eyebrow={t('aboutPage.eyebrow')}
+        title={t('aboutPage.title', { name: APP_NAME })}
+        lead={t('aboutPage.lead')}
+        meta={t('common.lastReviewed', {
+          date: formatLongDate(POLICY_UPDATED, locale),
+        })}
       />
+
+      <ContentLanguageNote />
 
       <article className="max-w-3xl text-[15px] leading-relaxed text-slate-600">
         <ContentBlocks sections={SECTIONS} />
@@ -143,13 +151,13 @@ function About() {
 
       <div className="flex flex-wrap gap-3 border-t border-slate-200 pt-8">
         <Link to="/">
-          <Button>Open the calculator</Button>
+          <Button>{t('aboutPage.openCalc')}</Button>
         </Link>
         <Link to="/guides">
-          <Button variant="outline">Read the guides</Button>
+          <Button variant="outline">{t('aboutPage.readGuides')}</Button>
         </Link>
         <Link to="/contact">
-          <Button variant="secondary">Contact us</Button>
+          <Button variant="secondary">{t('aboutPage.contactUs')}</Button>
         </Link>
       </div>
     </div>

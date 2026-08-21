@@ -5,24 +5,25 @@ import {
   FaBolt,
 } from 'react-icons/fa';
 import Seo from '../components/common/Seo';
+import { useI18n } from '../context/AppContext';
 
 const OFFICIAL_URL = 'https://pmsuryaghar.gov.in/#/';
 
-const highlights = [
+const highlightDefs = [
   {
     icon: FaBolt,
-    label: 'Free electricity',
-    value: 'Up to 300 units / month',
+    labelKey: 'whatsNew.freeElec',
+    valueKey: 'whatsNew.freeValue',
   },
   {
     icon: FaHome,
-    label: 'Target households',
-    value: '1 crore homes',
+    labelKey: 'whatsNew.target',
+    valueKey: 'whatsNew.targetValue',
   },
   {
     icon: FaSolarPanel,
-    label: 'Scheme investment',
-    value: 'Over ₹75,000 crores',
+    labelKey: 'whatsNew.investment',
+    valueKey: 'whatsNew.investmentValue',
   },
 ];
 
@@ -57,6 +58,8 @@ function IndiaMapPattern() {
 }
 
 function WhatsNew() {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-8">
       <Seo path="/whats-new" />
@@ -66,7 +69,7 @@ function WhatsNew() {
 
         <div className="relative max-w-3xl">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-600">
-            Whats New · Central Government Scheme
+            {t('whatsNew.eyebrow')}
           </p>
 
           <h1 className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
@@ -88,26 +91,26 @@ function WhatsNew() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#0055A4] px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-800"
           >
-            Visit official PM Surya Ghar website
+            {t('whatsNew.visit')}
             <FaExternalLinkAlt size={12} />
           </a>
         </div>
       </section>
 
       <section className="grid gap-4 sm:grid-cols-3">
-        {highlights.map(({ icon: Icon, label, value }) => (
+        {highlightDefs.map(({ icon: Icon, labelKey, valueKey }) => (
           <div
-            key={label}
+            key={labelKey}
             className="rounded-xl border border-slate-200 bg-white p-5"
           >
             <div className="mb-3 inline-flex rounded-lg bg-blue-50 p-2.5 text-[#0055A4]">
               <Icon size={18} />
             </div>
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-              {label}
+              {t(labelKey)}
             </p>
             <p className="mt-1 font-display text-lg font-bold text-slate-900">
-              {value}
+              {t(valueKey)}
             </p>
           </div>
         ))}
@@ -115,26 +118,15 @@ function WhatsNew() {
 
       <section className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-6 sm:px-8">
         <h2 className="font-display text-xl font-bold text-slate-900">
-          What this means for consumers
+          {t('whatsNew.meansTitle')}
         </h2>
         <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700">
-          <li>
-            Households can apply for rooftop solar under this central scheme
-            through the official portal.
-          </li>
-          <li>
-            Eligible homes may get subsidy support and generate their own
-            electricity — reducing monthly bills.
-          </li>
-          <li>
-            The goal includes up to{' '}
-            <strong>300 units of free electricity</strong> every month for
-            covered households.
-          </li>
+          <li>{t('whatsNew.means1')}</li>
+          <li>{t('whatsNew.means2')}</li>
+          <li>{t('whatsNew.means3')}</li>
         </ul>
         <p className="mt-5 text-xs text-slate-500">
-          This page is an informational highlight only. Applications,
-          eligibility, and subsidies are handled on the official site:{' '}
+          {t('whatsNew.footnote')}{' '}
           <a
             href={OFFICIAL_URL}
             target="_blank"

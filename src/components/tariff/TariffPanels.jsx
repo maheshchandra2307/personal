@@ -1,3 +1,5 @@
+import { useI18n } from '../../context/AppContext';
+
 function SectionTitle({ children }) {
   return (
     <h3 className="mb-2.5 mt-5 flex items-center gap-2 font-display text-[13px] font-semibold uppercase tracking-wide text-slate-600 first:mt-0 after:ml-2 after:h-px after:flex-1 after:bg-slate-200">
@@ -91,90 +93,118 @@ function TariffCardShell({ icon, title, children }) {
 }
 
 export function DomesticTariff() {
+  const { t } = useI18n();
+
   return (
-    <TariffCardShell icon="🏠" title="Domestic Tariff – Cat-I(A)">
-      <SectionTitle>Telescopic Slab Rates</SectionTitle>
+    <TariffCardShell icon="🏠" title={t('tariff.domestic.title')}>
+      <SectionTitle>{t('tariff.domestic.slabs')}</SectionTitle>
       <RateTable
         headers={[
-          'Monthly Units',
-          'Fixed Charge',
-          'Energy Rate',
-          'Customer Charge',
+          t('tariff.h.monthlyUnits'),
+          t('tariff.h.fixedCharge'),
+          t('tariff.h.energyRate'),
+          t('tariff.h.customerCharge'),
         ]}
         rows={[
-          ['0 – 30 units', '₹10/kW/month', '₹1.90/kWh', '₹25/month'],
-          ['31 – 75 units', '₹10/kW/month', '₹3.00/kWh', '₹30/month'],
-          ['76 – 125 units', '₹10/kW/month', '₹4.50/kWh', '₹45/month'],
-          ['126 – 225 units', '₹10/kW/month', '₹6.00/kWh', '₹50/month'],
-          ['226 – 400 units', '₹10/kW/month', '₹8.75/kWh', '₹55/month'],
-          ['Above 400 units', '₹10/kW/month*', '₹9.75/kWh', '₹55/month'],
+          [t('tariff.domestic.u0'), '₹10/kW/month', '₹1.90/kWh', '₹25/month'],
+          [t('tariff.domestic.u31'), '₹10/kW/month', '₹3.00/kWh', '₹30/month'],
+          [t('tariff.domestic.u76'), '₹10/kW/month', '₹4.50/kWh', '₹45/month'],
+          [t('tariff.domestic.u126'), '₹10/kW/month', '₹6.00/kWh', '₹50/month'],
+          [t('tariff.domestic.u226'), '₹10/kW/month', '₹8.75/kWh', '₹55/month'],
+          [
+            t('tariff.domestic.u400'),
+            '₹10/kW/month*',
+            '₹9.75/kWh',
+            '₹55/month',
+          ],
         ]}
-        note="* Fixed charge ₹75/kW for load above 75kW. Billing is telescopic — each slab rate applies only to units in that range."
+        note={t('tariff.domestic.note')}
       />
     </TariffCardShell>
   );
 }
 
 export function CommercialTariff() {
+  const { t } = useI18n();
+
   return (
-    <TariffCardShell icon="🏪" title="Commercial Tariff – Cat-II">
-      <SectionTitle>Commercial – Cat-II(A)(i)</SectionTitle>
+    <TariffCardShell icon="🏪" title={t('tariff.commercial.title')}>
+      <SectionTitle>{t('tariff.commercial.catA')}</SectionTitle>
       <RateTable
-        headers={['Monthly Units', 'Fixed Charge', 'Energy Rate']}
-        rows={[
-          ['0 – 50 units', '₹75/kW/month', '₹5.40/kWh'],
-          ['51 – 100 units', '₹75/kW/month', '₹7.65/kWh'],
-          ['101 – 300 units', '₹75/kW/month', '₹9.05/kWh'],
-          ['301 – 500 units', '₹75/kW/month', '₹9.60/kWh'],
-          ['Above 500 units', '₹75/kW/month', '₹9.95/kWh'],
+        headers={[
+          t('tariff.h.monthlyUnits'),
+          t('tariff.h.fixedCharge'),
+          t('tariff.h.energyRate'),
         ]}
-        note="Min monthly: Single Phase ₹65, Three Phase ₹200. Fixed charge ₹275/kW for load >75kW."
+        rows={[
+          [t('tariff.commercial.u0'), '₹75/kW/month', '₹5.40/kWh'],
+          [t('tariff.commercial.u51'), '₹75/kW/month', '₹7.65/kWh'],
+          [t('tariff.commercial.u101'), '₹75/kW/month', '₹9.05/kWh'],
+          [t('tariff.commercial.u301'), '₹75/kW/month', '₹9.60/kWh'],
+          [t('tariff.commercial.u500'), '₹75/kW/month', '₹9.95/kWh'],
+        ]}
+        note={t('tariff.commercial.note')}
       />
 
-      <SectionTitle>Other Commercial Sub-categories</SectionTitle>
+      <SectionTitle>{t('tariff.commercial.other')}</SectionTitle>
       <div className="grid gap-2.5 sm:grid-cols-2">
         <TariffCard
           category="Cat-II(A)(ii)"
-          name="Advertising Hoardings"
+          name={t('tariff.commercial.adv')}
           rates={[
             { label: '₹100/kW fixed', tone: 'high' },
             { label: '₹9.95/kWh', tone: 'high' },
-            { label: 'Min ₹300/month', tone: 'default' },
+            { label: t('tariff.commercial.minMonth'), tone: 'default' },
           ]}
         />
         <TariffCard
           category="Cat-II(A)(iii)"
-          name="Function Halls / Auditoria"
+          name={t('tariff.commercial.fun')}
           rates={[
-            { label: 'NIL fixed', tone: 'default' },
+            { label: t('tariff.commercial.nilFixed'), tone: 'default' },
             { label: '₹9.95/kWh', tone: 'high' },
-            { label: 'Min ₹300/month', tone: 'default' },
+            { label: t('tariff.commercial.minMonth'), tone: 'default' },
           ]}
         />
         <TariffCard
           category="Cat-II(C)"
-          name="EV Charging Stations"
+          name={t('tariff.commercial.ev')}
           rates={[
-            { label: 'NIL fixed', tone: 'free' },
+            { label: t('tariff.commercial.nilFixed'), tone: 'free' },
             { label: '₹6.70/kWh', tone: 'default' },
           ]}
         />
         <TariffCard
           category="Cat-II(D)"
-          name="Green / Renewable Power"
+          name={t('tariff.commercial.green')}
           rates={[
-            { label: 'NIL fixed', tone: 'free' },
+            { label: t('tariff.commercial.nilFixed'), tone: 'free' },
             { label: '₹9.95/kWh', tone: 'high' },
           ]}
         />
       </div>
 
-      <SectionTitle>Time-of-Day (ToD) – Commercial 10kW+</SectionTitle>
+      <SectionTitle>{t('tariff.commercial.tod')}</SectionTitle>
       <RateTable
-        headers={['Period', 'Hours', '10–20kW', '>20kW']}
+        headers={[
+          t('tariff.h.period'),
+          t('tariff.h.hours'),
+          '10–20kW',
+          '>20kW',
+        ]}
         rows={[
-          ['Peak', '18:00–22:00', '+₹0.50/kVAh', '+₹1.00/kVAh'],
-          ['Off-Peak', '10:00–15:00', '–₹0.50/kVAh', '–₹1.00/kVAh'],
+          [
+            t('tariff.commercial.peak'),
+            '18:00–22:00',
+            '+₹0.50/kVAh',
+            '+₹1.00/kVAh',
+          ],
+          [
+            t('tariff.commercial.offPeak'),
+            '10:00–15:00',
+            '–₹0.50/kVAh',
+            '–₹1.00/kVAh',
+          ],
         ]}
       />
     </TariffCardShell>
@@ -182,31 +212,53 @@ export function CommercialTariff() {
 }
 
 export function IndustryTariff() {
+  const { t } = useI18n();
+
   return (
-    <TariffCardShell icon="🏭" title="Industrial Tariff – Cat-III">
-      <SectionTitle>Industry General – Cat-III(A)</SectionTitle>
+    <TariffCardShell icon="🏭" title={t('tariff.industry.title')}>
+      <SectionTitle>{t('tariff.industry.general')}</SectionTitle>
       <RateTable
-        headers={['Load Range', 'Period', 'Fixed', 'Energy Rate']}
-        rows={[
-          ['≤15kW / 20HP', 'All hours', '₹75/kW', '₹6.70/kWh'],
-          ['>15kW – 25kW', 'Normal', '₹75/kW', '₹6.70/kWh'],
-          ['>15kW – 25kW', 'Peak (18–22h)', '₹75/kW', '₹7.20/kWh'],
-          ['>15kW – 25kW', 'Off-Peak (10–15h)', '₹75/kW', '₹6.20/kWh'],
-          ['>25kW – 75kW', 'Normal', '₹75/kW', '₹6.70/kWh'],
-          ['>25kW – 75kW', 'Peak (18–22h)', '₹75/kW', '₹7.70/kWh'],
-          ['>25kW – 75kW', 'Off-Peak (10–15h)', '₹75/kW', '₹5.70/kWh'],
-          ['>75kW – 150kW', 'Normal', '₹275/kW', '₹6.70/kWh'],
-          ['>75kW – 150kW', 'Peak (18–22h)', '₹275/kW', '₹7.70/kWh'],
-          ['>75kW – 150kW', 'Off-Peak (10–15h)', '₹275/kW', '₹5.70/kWh'],
+        headers={[
+          t('tariff.h.loadRange'),
+          t('tariff.h.period'),
+          t('tariff.h.fixed'),
+          t('tariff.h.energyRate'),
         ]}
-        note="Poultry/dairy/pisciculture farms: ₹5.25/unit; Demand: ₹75/kW"
+        rows={[
+          [
+            '≤15kW / 20HP',
+            t('tariff.industry.allHours'),
+            '₹75/kW',
+            '₹6.70/kWh',
+          ],
+          ['>15kW – 25kW', t('tariff.industry.normal'), '₹75/kW', '₹6.70/kWh'],
+          ['>15kW – 25kW', t('tariff.industry.peak'), '₹75/kW', '₹7.20/kWh'],
+          ['>15kW – 25kW', t('tariff.industry.offPeak'), '₹75/kW', '₹6.20/kWh'],
+          ['>25kW – 75kW', t('tariff.industry.normal'), '₹75/kW', '₹6.70/kWh'],
+          ['>25kW – 75kW', t('tariff.industry.peak'), '₹75/kW', '₹7.70/kWh'],
+          ['>25kW – 75kW', t('tariff.industry.offPeak'), '₹75/kW', '₹5.70/kWh'],
+          [
+            '>75kW – 150kW',
+            t('tariff.industry.normal'),
+            '₹275/kW',
+            '₹6.70/kWh',
+          ],
+          ['>75kW – 150kW', t('tariff.industry.peak'), '₹275/kW', '₹7.70/kWh'],
+          [
+            '>75kW – 150kW',
+            t('tariff.industry.offPeak'),
+            '₹275/kW',
+            '₹5.70/kWh',
+          ],
+        ]}
+        note={t('tariff.industry.note')}
       />
 
-      <SectionTitle>Other Industrial Categories</SectionTitle>
+      <SectionTitle>{t('tariff.industry.other')}</SectionTitle>
       <div className="grid gap-2.5 sm:grid-cols-2">
         <TariffCard
           category="Cat-III(B)"
-          name="Seasonal Industries (Off-Season)"
+          name={t('tariff.industry.seasonal')}
           rates={[
             { label: '30% load × ₹75/kW fixed', tone: 'default' },
             { label: '₹7.45/kWh', tone: 'high' },
@@ -214,7 +266,7 @@ export function IndustryTariff() {
         />
         <TariffCard
           category="Cat-III(D)"
-          name="Cottage Industries ≤20HP"
+          name={t('tariff.industry.cottage')}
           rates={[
             { label: '₹20/kW (min ₹30)', tone: 'default' },
             { label: '₹3.75/kWh', tone: 'default' },
@@ -226,36 +278,38 @@ export function IndustryTariff() {
 }
 
 export function AgricultureTariff() {
+  const { t } = useI18n();
+
   return (
-    <TariffCardShell icon="🌾" title="Agriculture Tariff – Cat-V">
+    <TariffCardShell icon="🌾" title={t('tariff.agri.title')}>
       <div className="grid gap-2.5 sm:grid-cols-2">
         <TariffCard
           category="Cat-V(A)(i)"
-          name="Agriculture – Corporate Farmers"
+          name={t('tariff.agri.corp')}
           rates={[
-            { label: '₹3.50/kWh (with DSM)', tone: 'default' },
-            { label: '₹4.50/kWh (no DSM)', tone: 'high' },
+            { label: t('tariff.agri.withDsm'), tone: 'default' },
+            { label: t('tariff.agri.noDsm'), tone: 'high' },
           ]}
         />
         <TariffCard
           category="Cat-V(A)(ii)"
-          name="Agriculture – Non-Corporate Farmers"
+          name={t('tariff.agri.nonCorp')}
           rates={[
-            { label: 'FREE up to 1200 units/HP/year', tone: 'free' },
-            { label: '₹6.40/unit (urban, above 1200)', tone: 'high' },
+            { label: t('tariff.agri.freeQuota'), tone: 'free' },
+            { label: t('tariff.agri.urbanExcess'), tone: 'high' },
           ]}
         />
         <TariffCard
           category="Cat-V(A)(iii)"
-          name="Salt Farming Units ≤15HP"
+          name={t('tariff.agri.salt')}
           rates={[
-            { label: 'NIL fixed', tone: 'free' },
+            { label: t('tariff.agri.nilFixed'), tone: 'free' },
             { label: '₹2.50/kWh', tone: 'default' },
           ]}
         />
         <TariffCard
           category="Cat-V(B)"
-          name="Aquaculture & Animal Husbandry"
+          name={t('tariff.agri.aqua')}
           rates={[
             { label: '₹30/kW fixed', tone: 'default' },
             { label: '₹3.85/kWh', tone: 'default' },
@@ -263,7 +317,7 @@ export function AgricultureTariff() {
         />
         <TariffCard
           category="Cat-V(D)"
-          name="Agro-based Cottage Industries ≤20HP"
+          name={t('tariff.agri.agroCot')}
           rates={[
             { label: '₹20/kW fixed', tone: 'default' },
             { label: '₹3.75/kWh', tone: 'default' },
@@ -271,11 +325,11 @@ export function AgricultureTariff() {
         />
         <TariffCard
           category="Cat-V(E)"
-          name="Govt/Private Lift Irrigation"
+          name={t('tariff.agri.lift')}
           rates={[
-            { label: 'NIL fixed', tone: 'free' },
+            { label: t('tariff.agri.nilFixed'), tone: 'free' },
             { label: '₹6.40/kVAh', tone: 'default' },
-            { label: 'Free up to 1200 units/HP/yr', tone: 'free' },
+            { label: t('tariff.agri.freeLift'), tone: 'free' },
           ]}
         />
       </div>
@@ -284,12 +338,14 @@ export function AgricultureTariff() {
 }
 
 export function OthersTariff() {
+  const { t } = useI18n();
+
   return (
-    <TariffCardShell icon="🏛️" title="Institutional & Others – Cat-IV">
+    <TariffCardShell icon="🏛️" title={t('tariff.others.title')}>
       <div className="grid gap-2.5 sm:grid-cols-2">
         <TariffCard
           category="Cat-IV(A)"
-          name="Utilities – Street Lighting / CPWS"
+          name={t('tariff.others.util')}
           rates={[
             { label: '₹75/kW fixed (>75kW: ₹275/kW)', tone: 'default' },
             { label: '₹7.00/kWh', tone: 'default' },
@@ -297,7 +353,7 @@ export function OthersTariff() {
         />
         <TariffCard
           category="Cat-IV(B)"
-          name="General Purpose – Govt / Charitable"
+          name={t('tariff.others.genp')}
           rates={[
             { label: '₹75/kW fixed', tone: 'default' },
             { label: '₹7.00/kWh', tone: 'default' },
@@ -306,7 +362,7 @@ export function OthersTariff() {
         />
         <TariffCard
           category="Cat-IV(C)"
-          name="Religious Places – ≤2kW"
+          name={t('tariff.others.relLt')}
           rates={[
             { label: '₹30/kW fixed', tone: 'default' },
             { label: '₹3.85/kWh', tone: 'default' },
@@ -314,7 +370,7 @@ export function OthersTariff() {
         />
         <TariffCard
           category="Cat-IV(C)"
-          name="Religious Places – >2kW"
+          name={t('tariff.others.relGt')}
           rates={[
             { label: '₹30/kW fixed', tone: 'default' },
             { label: '₹5.00/kWh', tone: 'default' },
@@ -322,18 +378,18 @@ export function OthersTariff() {
         />
         <TariffCard
           category="Temporary"
-          name="Temporary Supply – General"
+          name={t('tariff.others.tmpGen')}
           rates={[
             { label: '₹30/kW fixed', tone: 'default' },
             { label: '₹10.50/kWh', tone: 'high' },
-            { label: '+₹200 urgency', tone: 'default' },
+            { label: t('tariff.others.urgency'), tone: 'default' },
           ]}
         />
         <TariffCard
           category="Temporary"
-          name="Temporary Supply – Free/Subsidised"
+          name={t('tariff.others.tmpSub')}
           rates={[
-            { label: 'NIL fixed', tone: 'free' },
+            { label: t('tariff.agri.nilFixed'), tone: 'free' },
             { label: '₹3.75/kWh', tone: 'default' },
           ]}
         />
@@ -343,63 +399,62 @@ export function OthersTariff() {
 }
 
 export function OtherChargesTariff() {
+  const { t } = useI18n();
+
   return (
-    <TariffCardShell icon="📋" title="Other Charges FY 2026-27">
-      <SectionTitle>Delayed Payment Surcharge</SectionTitle>
+    <TariffCardShell icon="📋" title={t('tariff.charges.title')}>
+      <SectionTitle>{t('tariff.charges.dps')}</SectionTitle>
       <RateTable
-        headers={['Category', 'DPS Rate']}
+        headers={[t('tariff.h.category'), t('tariff.h.dpsRate')]}
         rows={[
-          ['Cat-I(A) Domestic, Cat-III(D) Cottage, Cat-V(D)', '₹25/month'],
-          ['Cat-II(A)(i) <50 units, Cat-IV(C) <2kW', '₹25/month'],
-          ['All other LT categories', '5 paise per ₹100/day (min ₹150)'],
+          [t('tariff.charges.dpsDom'), '₹25/month'],
+          [t('tariff.charges.dpsSmall'), '₹25/month'],
+          [t('tariff.charges.dpsOther'), t('tariff.charges.dpsOtherRate')],
         ]}
       />
 
-      <SectionTitle>Reconnection Charges</SectionTitle>
+      <SectionTitle>{t('tariff.charges.recon')}</SectionTitle>
       <RateTable
-        headers={['Service Type', 'Charge']}
+        headers={[t('tariff.h.serviceType'), t('tariff.h.charge')]}
         rows={[
-          ['LT Services – Overhead line (any category)', '₹100'],
-          ['LT Services – Underground cable', '₹300'],
+          [t('tariff.charges.oh'), '₹100'],
+          [t('tariff.charges.ug'), '₹300'],
         ]}
       />
 
-      <SectionTitle>Meter Testing Charges</SectionTitle>
+      <SectionTitle>{t('tariff.charges.meter')}</SectionTitle>
       <RateTable
-        headers={['Meter Type', 'Charge']}
+        headers={[t('tariff.h.meterType'), t('tariff.h.charge')]}
         rows={[
-          ['AC Single-Phase Energy Meter', '₹200'],
-          ['AC Three-Phase Energy Meter', '₹500'],
-          ['Trivector Meter', '₹2,500'],
+          [t('tariff.charges.spMeter'), '₹200'],
+          [t('tariff.charges.tpMeter'), '₹500'],
+          [t('tariff.charges.trivector'), '₹2,500'],
         ]}
       />
 
-      <SectionTitle>Miscellaneous</SectionTitle>
+      <SectionTitle>{t('tariff.charges.misc')}</SectionTitle>
       <RateTable
-        headers={['Item', 'Charge']}
+        headers={[t('tariff.h.item'), t('tariff.h.charge')]}
         rows={[
-          ['Application Registration Fee – Agricultural/Domestic', '₹50'],
-          ['Application Registration Fee – Other Categories', '₹100'],
-          ['Changing meter (Single Phase, consumer request)', '₹50'],
-          ['Changing meter (Three Phase, consumer request)', '₹100'],
-          ['Inspection / Supervision charges', '₹100'],
-          ['Urgency charge (Temporary supply)', '₹200'],
-          ['Resealing – Whole Current Meter', '₹25'],
-          ['Resealing – CT Operated / Other Apparatus', '₹100'],
+          [t('tariff.charges.appAgri'), '₹50'],
+          [t('tariff.charges.appOther'), '₹100'],
+          [t('tariff.charges.changeSp'), '₹50'],
+          [t('tariff.charges.changeTp'), '₹100'],
+          [t('tariff.charges.inspect'), '₹100'],
+          [t('tariff.charges.urgency'), '₹200'],
+          [t('tariff.charges.resealWc'), '₹25'],
+          [t('tariff.charges.resealCt'), '₹100'],
         ]}
       />
 
-      <SectionTitle>Grid Support Charges</SectionTitle>
+      <SectionTitle>{t('tariff.charges.grid')}</SectionTitle>
       <RateTable
-        headers={['Plant Type', 'Rate']}
+        headers={[t('tariff.h.plantType'), t('tariff.h.rate')]}
         rows={[
-          ['Conventional CPPs (parallel operation)', '₹50/kW/month'],
-          [
-            'Renewable Energy Plants (incl. waste heat, MSW, cogen)',
-            '₹25/kW/month',
-          ],
-          ['Rooftop Solar (net/gross metering)', '₹15/kW/month'],
-          ['Co-gen Sugar Mills', '₹25/kW/month'],
+          [t('tariff.charges.convCpp'), '₹50/kW/month'],
+          [t('tariff.charges.rePlant'), '₹25/kW/month'],
+          [t('tariff.charges.rooftop'), '₹15/kW/month'],
+          [t('tariff.charges.cogen'), '₹25/kW/month'],
         ]}
       />
     </TariffCardShell>

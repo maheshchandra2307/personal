@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { CATEGORY_GROUP_KEYS } from '../../constants';
 import {
   CATEGORY_OPTIONS,
   HIDE_LOAD_CATEGORIES,
   tariffs,
 } from '../../constants/tariffs';
+import { useI18n } from '../../context/AppContext';
 import {
   buildSlabPreviewRows,
   calculateBill,
@@ -82,6 +84,7 @@ function UnitInput({
 }
 
 function SlabPreview({ slabs, units }) {
+  const { t } = useI18n();
   const { rows, totalEnergy } = useMemo(
     () => buildSlabPreviewRows(units, slabs),
     [slabs, units]
@@ -90,13 +93,18 @@ function SlabPreview({ slabs, units }) {
   return (
     <div className="mb-[18px]">
       <div className="mb-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-slate-600">
-        Applicable Slabs
+        {t('calc.applicableSlabs')}
       </div>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-[13px]">
           <thead>
             <tr>
-              {['Slab', 'Rate (₹/kWh)', 'Range', 'Slab Cost'].map((h) => (
+              {[
+                t('calc.slab'),
+                t('calc.rateKwh'),
+                t('calc.range'),
+                t('calc.slabCost'),
+              ].map((h) => (
                 <th
                   key={h}
                   className="border-b border-slate-200 px-2.5 py-2 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400"
@@ -107,7 +115,7 @@ function SlabPreview({ slabs, units }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <tr
                 key={row.key}
                 className={cn(
@@ -122,17 +130,19 @@ function SlabPreview({ slabs, units }) {
                       'border-l-2 border-amber-600 pl-2 text-slate-900'
                   )}
                 >
-                  {row.name}
+                  {row.name === 'Above'
+                    ? t('calc.above')
+                    : t('calc.slabN', { n: index + 1 })}
                 </td>
                 <td className="px-2.5 py-2.5 font-semibold text-emerald-600">
                   ₹{row.rate.toFixed(2)}
                 </td>
                 <td className="px-2.5 py-2.5 text-slate-900">
-                  {row.rangeText}
+                  {row.rangeText.replace('units', t('calc.unitsWord'))}
                 </td>
                 <td className="px-2.5 py-2.5 font-semibold text-emerald-600">
                   {row.take > 0
-                    ? `₹${formatMoney(row.cost)} (${row.take.toFixed(0)} u)`
+                    ? `₹${formatMoney(row.cost)} (${row.take.toFixed(0)} ${t('calc.unitsWord')})`
                     : '₹0.00'}
                 </td>
               </tr>
@@ -142,7 +152,7 @@ function SlabPreview({ slabs, units }) {
                 colSpan={3}
                 className="px-2.5 py-2.5 text-right font-bold text-slate-900"
               >
-                Total Energy Charges
+                {t('calc.totalEnergy')}
               </td>
               <td className="px-2.5 py-2.5 font-bold text-emerald-600">
                 ₹{formatMoney(totalEnergy)}
@@ -156,16 +166,14 @@ function SlabPreview({ slabs, units }) {
 }
 
 function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
+  const { t } = useI18n();
+
   if (!hasCalculated || !result) {
     return (
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
         <div className="px-6 py-12 text-center text-slate-500">
           <div className="mb-3 text-4xl opacity-30">⚡</div>
-          <p className="text-sm leading-relaxed">
-            Select a category, enter your usage, and tap{' '}
-            <strong className="text-amber-600">Calculate</strong> to see a full
-            bill breakdown.
-          </p>
+          <p className="text-sm leading-relaxed">{t('calc.empty')}</p>
         </div>
       </div>
     );
@@ -178,21 +186,21 @@ function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
       <div className="p-6">
         <div className="mb-4 rounded-2xl border border-amber-300/40 bg-gradient-to-br from-amber-50 to-orange-50 p-6 text-center">
           <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-amber-800">
-            Estimated Monthly Bill
+            {t('calc.estimated')}
           </div>
           <div className="font-display text-5xl font-bold leading-none text-amber-600">
             <sup className="text-[22px] align-super">₹</sup>
             {formatMoney(result.total)}
           </div>
           <div className="mt-1 text-[12px] text-amber-900/80">
-            {result.caption}
+            {t(`calc.caption.${result.captionKey || 'default'}`)}
           </div>
           <button
             type="button"
             onClick={onCopy}
             className="mt-4 rounded-lg border border-amber-300/50 bg-white/70 px-3 py-1.5 text-[12px] font-semibold text-amber-800 transition hover:bg-white"
           >
-            {copyStatus || 'Copy estimate summary'}
+            {copyStatus || t('calc.copy')}
           </button>
         </div>
 
@@ -201,25 +209,27 @@ function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
             <div className="font-display text-xl font-bold text-slate-900">
               {result.units.toFixed(0)}
             </div>
-            <div className="text-[11px] font-medium text-slate-400">Units</div>
+            <div className="text-[11px] font-medium text-slate-400">
+              {t('calc.units')}
+            </div>
           </div>
           <div className="rounded-[10px] border border-amber-300/40 bg-amber-50 p-3.5 text-center">
             <div className="font-display text-xl font-bold text-amber-600">
               ₹{formatMoney(result.avgRate)}
             </div>
             <div className="text-[11px] font-medium text-slate-400">
-              Avg / Unit
+              {t('calc.avgUnit')}
             </div>
           </div>
         </div>
 
         <div className="space-y-0">
           {[
-            ['Energy charges', result.energy, ''],
-            ['Fixed charges', result.fixed, ''],
-            ['Customer charges', result.customer, ''],
-            ['Other / minimum / urgency', result.extras, 'orange'],
-            ['Indicative subsidy value', result.subsidy, 'green'],
+            [t('calc.energyCharges'), result.energy, ''],
+            [t('calc.fixedCharges'), result.fixed, ''],
+            [t('calc.customerCharges'), result.customer, ''],
+            [t('calc.extras'), result.extras, 'orange'],
+            [t('calc.subsidy'), result.subsidy, 'green'],
           ].map(([label, value, tone]) => (
             <div
               key={label}
@@ -238,7 +248,7 @@ function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
             </div>
           ))}
           <div className="mt-3 flex items-center justify-between rounded-[10px] border border-amber-300/30 bg-orange-50 px-3.5 py-3.5 text-sm font-semibold">
-            <span>Total payable</span>
+            <span>{t('calc.totalPayable')}</span>
             <span className="font-display text-lg text-amber-600">
               ₹{formatMoney(result.total)}
             </span>
@@ -247,16 +257,18 @@ function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
 
         <div className="mt-4">
           <div className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-400">
-            Slab-wise Energy Cost
+            {t('calc.slabWise')}
           </div>
           <div className="space-y-2">
             {result.parts.map((part) => (
               <div
-                key={part.label}
+                key={part.labelKey || part.label}
                 className="flex items-center gap-2.5 text-[12px]"
               >
                 <div className="w-20 shrink-0 text-[11px] text-slate-400">
-                  {part.label}
+                  {part.labelKey
+                    ? t(`calc.parts.${part.labelKey}`)
+                    : part.label}
                 </div>
                 <div className="h-1.5 flex-1 overflow-hidden rounded-sm bg-slate-200">
                   <div
@@ -277,6 +289,7 @@ function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
 }
 
 export default function BillCalculator() {
+  const { t } = useI18n();
   const [category, setCategory] = useState(
     () => loadSavedState()?.category || ''
   );
@@ -371,7 +384,7 @@ export default function BillCalculator() {
 
   function handleCalculate() {
     if (!category || !conf) {
-      setError('Please select a consumer category.');
+      setError(t('calc.selectError'));
       return;
     }
 
@@ -397,21 +410,21 @@ export default function BillCalculator() {
     if (!result) return;
 
     const summary = [
-      'AP Electricity Bill Calculator – Estimated Bill',
-      `Units: ${result.units}`,
-      `Energy: ₹${formatMoney(result.energy)}`,
-      `Fixed: ₹${formatMoney(result.fixed)}`,
-      `Customer: ₹${formatMoney(result.customer)}`,
-      `Other: ₹${formatMoney(result.extras)}`,
-      `Total: ₹${formatMoney(result.total)}`,
-      'Unofficial estimate only.',
+      t('calc.copySummary.title'),
+      t('calc.copySummary.units', { units: result.units }),
+      t('calc.copySummary.energy', { amount: formatMoney(result.energy) }),
+      t('calc.copySummary.fixed', { amount: formatMoney(result.fixed) }),
+      t('calc.copySummary.customer', { amount: formatMoney(result.customer) }),
+      t('calc.copySummary.other', { amount: formatMoney(result.extras) }),
+      t('calc.copySummary.total', { amount: formatMoney(result.total) }),
+      t('calc.copySummary.unofficial'),
     ].join('\n');
 
     try {
       await navigator.clipboard.writeText(summary);
-      setCopyStatus('Copied!');
+      setCopyStatus(t('calc.copied'));
     } catch {
-      setCopyStatus('Copy failed');
+      setCopyStatus(t('calc.copyFailed'));
     }
   }
 
@@ -421,31 +434,32 @@ export default function BillCalculator() {
         <div className="flex items-center gap-2.5 border-b border-slate-200 px-6 py-5">
           <span>🧮</span>
           <h2 className="font-display text-[15px] font-semibold text-slate-900">
-            Bill Calculator
+            {t('calc.title')}
           </h2>
         </div>
 
         <div className="p-6">
           <div className="mb-[18px] rounded-[10px] border border-blue-200 bg-blue-50 px-3.5 py-2.5 text-[12px] leading-relaxed text-blue-700">
-            <strong className="text-blue-800">Telescopic billing:</strong> For
-            Domestic and Commercial slab categories, each slab rate applies only
-            to units within that range.
+            {t('calc.telescopic')}
           </div>
 
           <div className="mb-[18px]">
-            <FormLabel required>Consumer Category</FormLabel>
+            <FormLabel required>{t('calc.category')}</FormLabel>
             <div className="relative">
               <select
                 className={cn(inputClass, 'appearance-none pr-10')}
                 value={category}
                 onChange={(e) => handleCategoryChange(e.target.value)}
               >
-                <option value="">— Select your category —</option>
+                <option value="">{t('calc.selectCategory')}</option>
                 {CATEGORY_OPTIONS.map((group) => (
-                  <optgroup key={group.group} label={group.group}>
+                  <optgroup
+                    key={group.group}
+                    label={t(CATEGORY_GROUP_KEYS[group.group] || group.group)}
+                  >
                     {group.options.map((opt) => (
                       <option key={opt.value} value={opt.value}>
-                        {opt.label}
+                        {t(`categories.${opt.value}`)}
                       </option>
                     ))}
                   </optgroup>
@@ -460,7 +474,7 @@ export default function BillCalculator() {
           {conf?.type === 'tod' ? (
             <div className="space-y-[18px]">
               <div>
-                <FormLabel>Peak usage share</FormLabel>
+                <FormLabel>{t('calc.peakShare')}</FormLabel>
                 <UnitInput
                   value={todPeak}
                   min={0}
@@ -470,7 +484,7 @@ export default function BillCalculator() {
                 />
               </div>
               <div>
-                <FormLabel>Off-peak usage share</FormLabel>
+                <FormLabel>{t('calc.offPeakShare')}</FormLabel>
                 <UnitInput
                   value={todOffpeak}
                   min={0}
@@ -480,22 +494,22 @@ export default function BillCalculator() {
                 />
               </div>
               <div className="rounded-[10px] border border-blue-200 bg-blue-50 px-3.5 py-2.5 text-[12px] text-blue-700">
-                Remaining units are treated as normal-hour consumption.
+                {t('calc.remainingUnits')}
               </div>
             </div>
           ) : null}
 
           {category === 'com' ? (
             <div className="mb-[18px] mt-[18px]">
-              <FormLabel>Supply Phase</FormLabel>
+              <FormLabel>{t('calc.supplyPhase')}</FormLabel>
               <div className="relative">
                 <select
                   className={cn(inputClass, 'appearance-none pr-10')}
                   value={phase}
                   onChange={(e) => setPhase(e.target.value)}
                 >
-                  <option value="1">Single Phase</option>
-                  <option value="3">Three Phase</option>
+                  <option value="1">{t('calc.singlePhase')}</option>
+                  <option value="3">{t('calc.threePhase')}</option>
                 </select>
                 <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[12px] text-slate-400">
                   ▾
@@ -506,15 +520,15 @@ export default function BillCalculator() {
 
           {category === 'agri_corp' ? (
             <div className="mb-[18px] mt-[18px]">
-              <FormLabel>DSM compliance</FormLabel>
+              <FormLabel>{t('calc.dsm')}</FormLabel>
               <div className="relative">
                 <select
                   className={cn(inputClass, 'appearance-none pr-10')}
                   value={dsm ? 'yes' : 'no'}
                   onChange={(e) => setDsm(e.target.value === 'yes')}
                 >
-                  <option value="yes">With DSM</option>
-                  <option value="no">Without DSM</option>
+                  <option value="yes">{t('calc.withDsm')}</option>
+                  <option value="no">{t('calc.withoutDsm')}</option>
                 </select>
                 <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[12px] text-slate-400">
                   ▾
@@ -526,15 +540,15 @@ export default function BillCalculator() {
           {category === 'agri_free' || category === 'lift' ? (
             <div className="mt-[18px] space-y-3">
               <div>
-                <FormLabel>Location</FormLabel>
+                <FormLabel>{t('calc.location')}</FormLabel>
                 <div className="relative">
                   <select
                     className={cn(inputClass, 'appearance-none pr-10')}
                     value={urban ? 'urban' : 'rural'}
                     onChange={(e) => setUrban(e.target.value === 'urban')}
                   >
-                    <option value="urban">Urban</option>
-                    <option value="rural">Rural</option>
+                    <option value="urban">{t('calc.urban')}</option>
+                    <option value="rural">{t('calc.rural')}</option>
                   </select>
                   <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[12px] text-slate-400">
                     ▾
@@ -542,17 +556,15 @@ export default function BillCalculator() {
                 </div>
               </div>
               <div className="rounded-[10px] border border-blue-200 bg-blue-50 px-3.5 py-2.5 text-[12px] leading-relaxed text-blue-700">
-                Free quota is evaluated against annual entitlement of 1200 units
-                per HP. This estimator approximates the monthly share as annual
-                quota divided by 12.
+                {t('calc.freeQuotaNote')}
               </div>
             </div>
           ) : null}
 
           {!hideLoad ? (
             <div className="mb-[18px] mt-[18px]">
-              <FormLabel tip="Used to calculate fixed charges. Check your meter or bill for sanctioned load.">
-                Contracted Load (kW / HP)
+              <FormLabel tip={t('calc.loadTip')}>
+                {t('calc.contractedLoad')}
               </FormLabel>
               <UnitInput
                 value={load}
@@ -580,15 +592,15 @@ export default function BillCalculator() {
           ) : null}
 
           <div className="mb-[18px]">
-            <FormLabel>Usage Entry Mode</FormLabel>
+            <FormLabel>{t('calc.usageMode')}</FormLabel>
             <div className="relative">
               <select
                 className={cn(inputClass, 'appearance-none pr-10')}
                 value={unitsMode}
                 onChange={(e) => handleUnitsModeChange(e.target.value)}
               >
-                <option value="units">Enter total units directly</option>
-                <option value="reading">Enter meter reading from and to</option>
+                <option value="units">{t('calc.enterUnits')}</option>
+                <option value="reading">{t('calc.enterReading')}</option>
               </select>
               <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[12px] text-slate-400">
                 ▾
@@ -598,14 +610,14 @@ export default function BillCalculator() {
 
           {unitsMode === 'reading' ? (
             <div className="mb-[18px]">
-              <FormLabel>Meter Reading (From / To)</FormLabel>
+              <FormLabel>{t('calc.meterReading')}</FormLabel>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <UnitInput
                   value={readingFrom}
                   min={0}
                   step={1}
-                  unit="From kWh"
-                  placeholder="Previous reading"
+                  unit={t('calc.fromKwh')}
+                  placeholder={t('calc.previousReading')}
                   onChange={(e) =>
                     handleReadingChange(Number(e.target.value) || 0, readingTo)
                   }
@@ -614,8 +626,8 @@ export default function BillCalculator() {
                   value={readingTo}
                   min={0}
                   step={1}
-                  unit="To kWh"
-                  placeholder="Current reading"
+                  unit={t('calc.toKwh')}
+                  placeholder={t('calc.currentReading')}
                   onChange={(e) =>
                     handleReadingChange(
                       readingFrom,
@@ -625,13 +637,13 @@ export default function BillCalculator() {
                 />
               </div>
               <div className="mt-2.5 rounded-[10px] border border-blue-200 bg-blue-50 px-3.5 py-2.5 text-[12px] text-blue-700">
-                Units will be auto-calculated as <strong>To − From</strong>.
+                {t('calc.autoUnits')}
               </div>
             </div>
           ) : (
             <div className="mb-[18px]">
-              <FormLabel tip="kWh (kilowatt-hours) consumed as shown on your meter reading.">
-                Units Consumed This Month
+              <FormLabel tip={t('calc.unitsTip')}>
+                {t('calc.unitsConsumed')}
               </FormLabel>
               <UnitInput
                 value={units}
@@ -652,7 +664,7 @@ export default function BillCalculator() {
                   className="h-1 flex-1 cursor-pointer appearance-none rounded-sm bg-slate-300 accent-amber-600"
                 />
                 <span className="min-w-[60px] text-right text-[13px] font-semibold text-amber-600">
-                  {units} units
+                  {t('calc.unitsValue', { units })}
                 </span>
               </div>
             </div>
@@ -673,12 +685,12 @@ export default function BillCalculator() {
             onClick={handleCalculate}
             className="mt-1 w-full rounded-[10px] bg-gradient-to-br from-amber-600 to-orange-500 px-4 py-3.5 font-display text-[15px] font-bold tracking-wide text-white transition hover:opacity-90 active:scale-[0.99]"
           >
-            ⚡ Calculate My Bill
+            ⚡ {t('calc.calculate')}
           </button>
 
           <Link to="/pay" className="mt-2 block w-full">
             <Button variant="outline" className="w-full py-3.5">
-              Pay Bill Links
+              {t('calc.payLinks')}
             </Button>
           </Link>
         </div>

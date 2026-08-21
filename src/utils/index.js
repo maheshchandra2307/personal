@@ -25,8 +25,8 @@ export function formatDate(value) {
  * @param {string|number|Date} value
  * @returns {string}
  */
-export function formatLongDate(value) {
-  return new Intl.DateTimeFormat('en-IN', {
+export function formatLongDate(value, locale = 'en-IN') {
+  return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

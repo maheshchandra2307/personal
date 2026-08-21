@@ -1,6 +1,20 @@
 import { useEffect } from 'react';
 import { canonicalUrl, getRouteMeta } from '../../constants/seo';
 import { APP_NAME } from '../../constants';
+import { useI18n } from '../../context/AppContext';
+
+const SEO_KEYS = {
+  '/': ['seo.homeTitle', 'seo.homeDesc'],
+  '/pay': ['seo.payTitle', 'seo.payDesc'],
+  '/guides': ['seo.guidesTitle', 'seo.guidesDesc'],
+  '/discoms': ['seo.discomsTitle', 'seo.discomsDesc'],
+  '/whats-new': ['seo.whatsNewTitle', 'seo.whatsNewDesc'],
+  '/about': ['seo.aboutTitle', 'seo.aboutDesc'],
+  '/contact': ['seo.contactTitle', 'seo.contactDesc'],
+  '/privacy-policy': ['seo.privacyTitle', 'seo.privacyDesc'],
+  '/terms': ['seo.termsTitle', 'seo.termsDesc'],
+  '/disclaimer': ['seo.disclaimerTitle', 'seo.disclaimerDesc'],
+};
 
 function upsertMeta(attribute, key, content) {
   const selector = `meta[${attribute}="${key}"]`;
@@ -32,8 +46,13 @@ function upsertCanonical(href) {
  * the same tags in their static HTML; this handles client-side navigation.
  */
 function Seo({ path }) {
+  const { t, lang } = useI18n();
+
   useEffect(() => {
-    const { title, description } = getRouteMeta(path);
+    const meta = getRouteMeta(path);
+    const keys = SEO_KEYS[meta.path];
+    const title = keys ? t(keys[0]) : meta.title;
+    const description = keys ? t(keys[1]) : meta.description;
     const url = canonicalUrl(path);
 
     document.title = title;
@@ -44,8 +63,9 @@ function Seo({ path }) {
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:type', 'website');
     upsertMeta('property', 'og:site_name', APP_NAME);
+    upsertMeta('property', 'og:locale', lang === 'te' ? 'te_IN' : 'en_IN');
     upsertMeta('name', 'twitter:card', 'summary_large_image');
-  }, [path]);
+  }, [path, t, lang]);
 
   return null;
 }

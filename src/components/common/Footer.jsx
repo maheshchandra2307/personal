@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { APP_NAME, LEGAL_LINKS, NAV_LINKS, TARIFF_YEAR } from '../../constants';
 import { CONTACT_EMAIL, DISCOM_HELPLINE } from '../../constants/site';
 import { GUIDES } from '../../constants/guides';
+import { useI18n } from '../../context/AppContext';
 
 function FooterColumn({ title, children }) {
   return (
@@ -17,6 +18,7 @@ function FooterColumn({ title, children }) {
 
 function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useI18n();
 
   return (
     <footer className="border-t border-slate-200 bg-slate-900 text-slate-300">
@@ -27,14 +29,12 @@ function Footer() {
             {APP_NAME}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">
-            An independent, unofficial APERC {TARIFF_YEAR} bill estimator,
-            tariff reference and payment link helper for Andhra Pradesh
-            consumers. Not affiliated with APERC or any AP DISCOM.
+            {t('footer.blurb', { year: TARIFF_YEAR })}
           </p>
           <ul className="mt-4 space-y-2 text-sm text-slate-400">
             <li className="flex items-center gap-2">
               <FaPhoneAlt className="shrink-0 text-amber-500" size={12} />
-              DISCOM helpline: {DISCOM_HELPLINE}
+              {t('footer.helpline', { number: DISCOM_HELPLINE })}
             </li>
             <li className="flex items-center gap-2">
               <FaEnvelope className="shrink-0 text-amber-500" size={12} />
@@ -48,7 +48,7 @@ function Footer() {
           </ul>
         </div>
 
-        <FooterColumn title="Navigation">
+        <FooterColumn title={t('footer.navigation')}>
           <ul className="mt-3 space-y-2">
             {NAV_LINKS.map((link) => (
               <li key={link.path}>
@@ -56,14 +56,14 @@ function Footer() {
                   to={link.path}
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               </li>
             ))}
           </ul>
         </FooterColumn>
 
-        <FooterColumn title="Guides">
+        <FooterColumn title={t('footer.guides')}>
           <ul className="mt-3 space-y-2">
             {GUIDES.map((guide) => (
               <li key={guide.slug}>
@@ -71,14 +71,14 @@ function Footer() {
                   to={`/guides/${guide.slug}`}
                   className="text-sm leading-snug transition-colors hover:text-white"
                 >
-                  {guide.title}
+                  {t(`guides.items.${guide.slug}.title`)}
                 </Link>
               </li>
             ))}
           </ul>
         </FooterColumn>
 
-        <FooterColumn title="Legal">
+        <FooterColumn title={t('footer.legal')}>
           <ul className="mt-3 space-y-2">
             {LEGAL_LINKS.map((link) => (
               <li key={link.path}>
@@ -86,7 +86,7 @@ function Footer() {
                   to={link.path}
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               </li>
             ))}
@@ -95,9 +95,7 @@ function Footer() {
       </div>
 
       <div className="border-t border-slate-800 px-4 py-5 text-center text-sm leading-relaxed text-slate-500">
-        © {year} {APP_NAME}. Estimates only — your official DISCOM bill is the
-        authoritative amount. Not affiliated with APERC, APSPDCL, APCPDCL,
-        APEPDCL or the Government of Andhra Pradesh.
+        {t('footer.copyright', { year, name: APP_NAME })}
       </div>
     </footer>
   );

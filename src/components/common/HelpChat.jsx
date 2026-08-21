@@ -1,7 +1,12 @@
 //use the command when next update the excel file npm run convert:tariff
 import { useEffect, useRef, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
-import { CHAT_QUICK_REPLIES, getChatReply } from '../../constants/chatFaq';
+import {
+  CHAT_QUICK_CANONICAL,
+  CHAT_QUICK_REPLY_IDS,
+  getChatReply,
+} from '../../constants/chatFaq';
+import { useI18n } from '../../context/AppContext';
 import { cn } from '../../utils';
 
 function BotIcon({ className }) {
@@ -26,18 +31,21 @@ function BotIcon({ className }) {
 }
 
 export default function HelpChat() {
+  const { t, lang } = useI18n();
   const [open, setOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(true);
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      id: 'welcome',
-      role: 'bot',
-      text: 'Hi! Need help with AP electricity bills?\n\nI answer from APERC LT Tariff FY 2026-27 (domestic, commercial, industry, agriculture, surcharge, reconnection) plus DISCOM & payment tips.\n\nThis is an unofficial helper — payments happen only on official sites.',
-    },
+  const [chatLang, setChatLang] = useState(lang);
+  const [messages, setMessages] = useState(() => [
+    { id: 'welcome', role: 'bot', text: t('chat.welcome') },
   ]);
   const bodyRef = useRef(null);
   const messageIdRef = useRef(0);
+
+  if (chatLang !== lang) {
+    setChatLang(lang);
+    setMessages([{ id: 'welcome', role: 'bot', text: t('chat.welcome') }]);
+  }
 
   useEffect(() => {
     if (bodyRef.current) {
@@ -53,8 +61,8 @@ export default function HelpChat() {
     });
   }
 
-  function sendMessage(raw) {
-    const text = raw.trim();
+  function sendMessage(displayText, matchText = displayText) {
+    const text = displayText.trim();
     if (!text) return;
 
     messageIdRef.current += 1;
@@ -67,18 +75,22 @@ export default function HelpChat() {
     const botMessage = {
       id: `b-${messageIdRef.current}`,
       role: 'bot',
-      text: getChatReply(text),
+      text: getChatReply(matchText, t),
     };
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
     setInput('');
   }
 
+  function sendQuickReply(id) {
+    sendMessage(t(`chat.quick.${id}`), CHAT_QUICK_CANONICAL[id]);
+  }
+
   return (
     <>
       <button
         type="button"
-        aria-label={open ? 'Close help chat' : 'Need help — open chat'}
+        aria-label={open ? t('chat.close') : t('chat.open')}
         onClick={toggleOpen}
         className={cn(
           'fixed bottom-[22px] right-[22px] z-[100] flex items-center gap-2.5 rounded-full bg-gradient-to-br from-[#0a3d62] to-[#2980b9] text-white shadow-[0_6px_20px_rgba(10,61,98,0.35)] transition hover:scale-[1.03] active:scale-[0.98]',
@@ -99,10 +111,10 @@ export default function HelpChat() {
             </span>
             <span className="text-left leading-tight">
               <span className="block text-[13px] font-bold tracking-wide">
-                Need Help?
+                {t('chat.needHelp')}
               </span>
               <span className="block text-[10px] font-medium text-blue-100">
-                Ask tariff & bill Qs
+                {t('chat.askHint')}
               </span>
             </span>
           </>
@@ -116,10 +128,10 @@ export default function HelpChat() {
               <BotIcon className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-[14px] font-bold">Bill Help Assistant</div>
+              <div className="text-[14px] font-bold">{t('chat.title')}</div>
               <div className="flex items-center gap-1 text-[11px] text-blue-100">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                APERC FY 2026-27 Excel · Unofficial
+                {t('chat.status')}
               </div>
             </div>
           </div>
@@ -144,14 +156,14 @@ export default function HelpChat() {
           </div>
 
           <div className="flex flex-wrap gap-1.5 bg-[#f6f9fc] px-3.5 pb-2.5">
-            {CHAT_QUICK_REPLIES.map((reply) => (
+            {CHAT_QUICK_REPLY_IDS.map((id) => (
               <button
-                key={reply}
+                key={id}
                 type="button"
-                onClick={() => sendMessage(reply)}
+                onClick={() => sendQuickReply(id)}
                 className="rounded-full border border-[#cfe1f0] bg-white px-2.5 py-1.5 text-[11px] font-semibold text-[#1a5f94] transition hover:bg-[#e8f3fc]"
               >
-                {reply}
+                {t(`chat.quick.${id}`)}
               </button>
             ))}
           </div>
@@ -167,12 +179,12 @@ export default function HelpChat() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask tariff, surcharge, DISCOM..."
+              placeholder={t('chat.placeholder')}
               className="flex-1 rounded-full border border-[#dde6ee] px-3.5 py-2 text-[13px] outline-none focus:border-[#2980b9]"
             />
             <button
               type="submit"
-              aria-label="Send"
+              aria-label={t('chat.send')}
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0a3d62] to-[#2980b9] text-white"
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white">
@@ -181,8 +193,7 @@ export default function HelpChat() {
             </button>
           </form>
           <div className="bg-white px-2.5 pb-2 text-center text-[10px] text-slate-400">
-            Answers from your tariff Excel + FAQ · Official payment on DISCOM
-            sites
+            {t('chat.footer')}
           </div>
         </div>
       ) : null}

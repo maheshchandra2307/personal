@@ -4,6 +4,8 @@ import ContentBlocks from '../components/content/ContentBlocks';
 import { APP_NAME } from '../constants';
 import { CONTACT_EMAIL, POLICY_UPDATED, SITE_DOMAIN } from '../constants/site';
 import { formatLongDate } from '../utils';
+import { useI18n } from '../context/AppContext';
+import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
 const SECTIONS = [
   {
@@ -174,16 +176,22 @@ const SECTIONS = [
 ];
 
 function Terms() {
+  const { t, locale } = useI18n();
+
   return (
     <div className="space-y-8">
       <Seo path="/terms" />
 
       <PageHeader
-        eyebrow="Legal"
-        title="Terms of Service"
-        lead={`The terms on which ${SITE_DOMAIN} is made available, including what the estimates are and are not, acceptable use, and the limits of our liability.`}
-        meta={`Last updated ${formatLongDate(POLICY_UPDATED)}`}
+        eyebrow={t('legalPage.termsEyebrow')}
+        title={t('legalPage.termsTitle')}
+        lead={t('legalPage.termsLead')}
+        meta={t('common.updated', {
+          date: formatLongDate(POLICY_UPDATED, locale),
+        })}
       />
+
+      <ContentLanguageNote />
 
       <article className="max-w-3xl text-[15px] leading-relaxed text-slate-600">
         <ContentBlocks sections={SECTIONS} />

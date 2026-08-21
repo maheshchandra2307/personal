@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { DISCOMS } from '../../constants/discoms';
+import { useI18n } from '../../context/AppContext';
 import { cn } from '../../utils';
 
 const themeAccent = {
@@ -10,6 +11,7 @@ const themeAccent = {
 
 export default function DistrictFinder() {
   const [query, setQuery] = useState('');
+  const { t } = useI18n();
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -25,24 +27,19 @@ export default function DistrictFinder() {
   return (
     <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <h3 className="font-display text-base font-semibold text-slate-900">
-        Find your DISCOM by district
+        {t('pay.findTitle')}
       </h3>
-      <p className="mt-1 text-sm text-slate-600">
-        Type your district name to see which company handles your area.
-      </p>
+      <p className="mt-1 text-sm text-slate-600">{t('pay.findLead')}</p>
       <input
         type="search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="e.g. Guntur, Tirupati, Visakhapatnam"
+        placeholder={t('pay.findPlaceholder')}
         className="mt-3 w-full rounded-[10px] border border-slate-200 px-3.5 py-3 text-sm outline-none focus:border-blue-600 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]"
       />
 
       {query && matches.length === 0 ? (
-        <p className="mt-3 text-sm text-slate-500">
-          No district match found. Try a shorter name, or check the district
-          tags on the cards below.
-        </p>
+        <p className="mt-3 text-sm text-slate-500">{t('pay.noMatch')}</p>
       ) : null}
 
       {matches.length > 0 ? (
@@ -61,7 +58,7 @@ export default function DistrictFinder() {
                 <span>
                   {district} → <strong>{discom.acronym}</strong>
                 </span>
-                <span className="text-xs opacity-80">Open pay page →</span>
+                <span className="text-xs opacity-80">{t('pay.openPay')}</span>
               </a>
             </li>
           ))}

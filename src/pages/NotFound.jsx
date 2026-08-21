@@ -3,19 +3,22 @@ import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import Button from '../components/ui/Button';
 import { APP_NAME } from '../constants';
-
-const SUGGESTIONS = [
-  { label: 'Bill calculator', path: '/' },
-  { label: 'Guides', path: '/guides' },
-  { label: 'AP DISCOMs', path: '/discoms' },
-  { label: 'Pay bill links', path: '/pay' },
-  { label: 'About', path: '/about' },
-  { label: 'Contact', path: '/contact' },
-];
+import { useI18n } from '../context/AppContext';
 
 function NotFound() {
+  const { t } = useI18n();
+
+  const suggestions = [
+    { label: t('notFound.calc'), path: '/' },
+    { label: t('notFound.guides'), path: '/guides' },
+    { label: t('notFound.discoms'), path: '/discoms' },
+    { label: t('notFound.pay'), path: '/pay' },
+    { label: t('notFound.about'), path: '/about' },
+    { label: t('notFound.contact'), path: '/contact' },
+  ];
+
   useEffect(() => {
-    document.title = `Page not found – ${APP_NAME}`;
+    document.title = t('notFound.documentTitle', { name: APP_NAME });
 
     let tag = document.head.querySelector('meta[name="robots"]');
     const created = !tag;
@@ -34,7 +37,7 @@ function NotFound() {
         tag.setAttribute('content', 'index, follow');
       }
     };
-  }, []);
+  }, [t]);
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
@@ -43,15 +46,12 @@ function NotFound() {
         404
       </p>
       <h1 className="font-display mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
-        Page not found
+        {t('notFound.title')}
       </h1>
-      <p className="mt-3 max-w-md text-slate-600">
-        The page you are looking for does not exist or has been moved. Here is
-        everything else on the site.
-      </p>
+      <p className="mt-3 max-w-md text-slate-600">{t('notFound.lead')}</p>
 
       <ul className="mt-7 flex max-w-lg flex-wrap justify-center gap-2.5">
-        {SUGGESTIONS.map((item) => (
+        {suggestions.map((item) => (
           <li key={item.path}>
             <Link
               to={item.path}
@@ -65,10 +65,10 @@ function NotFound() {
 
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link to="/">
-          <Button>Back to calculator</Button>
+          <Button>{t('notFound.back')}</Button>
         </Link>
         <Link to="/guides">
-          <Button variant="outline">Browse guides</Button>
+          <Button variant="outline">{t('notFound.browse')}</Button>
         </Link>
       </div>
     </div>
