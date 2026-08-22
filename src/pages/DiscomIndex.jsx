@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/common/Seo';
+import JsonLd from '../components/content/JsonLd';
 import PageHeader from '../components/content/PageHeader';
 import { DISCOM_PROFILES } from '../constants/discomProfiles';
 import { DISCOMS } from '../constants/discoms';
 import { TARIFF_YEAR } from '../constants';
+import { itemListJsonLd } from '../utils/jsonLd';
 import { useI18n } from '../context/AppContext';
 
 function DiscomCard({ profile }) {
@@ -45,6 +47,14 @@ function DiscomIndex() {
   return (
     <div className="space-y-10">
       <Seo path="/discoms" />
+      <JsonLd
+        data={itemListJsonLd(
+          DISCOM_PROFILES.map((profile) => ({
+            name: `${profile.acronym} — ${profile.name}`,
+            path: `/discoms/${profile.slug}`,
+          }))
+        )}
+      />
 
       <PageHeader
         eyebrow={t('discom.eyebrow')}

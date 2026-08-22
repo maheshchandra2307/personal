@@ -132,7 +132,7 @@ function About() {
 
   return (
     <div className="space-y-8">
-      <Seo path="/about" />
+      <Seo path="/about" jsonLdType="AboutPage" />
 
       <PageHeader
         eyebrow={t('aboutPage.eyebrow')}

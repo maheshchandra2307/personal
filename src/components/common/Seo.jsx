@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { canonicalUrl, getRouteMeta } from '../../constants/seo';
 import { APP_NAME } from '../../constants';
+import { OG_IMAGE_URL } from '../../constants/site';
 import { useI18n } from '../../context/AppContext';
+import JsonLd from '../content/JsonLd';
+import { webPageJsonLd } from '../../utils/jsonLd';
 
 const SEO_KEYS = {
   '/': ['seo.homeTitle', 'seo.homeDesc'],
@@ -45,16 +48,17 @@ function upsertCanonical(href) {
  * Keeps the document head in sync with the active route. Prerendered pages ship
  * the same tags in their static HTML; this handles client-side navigation.
  */
-function Seo({ path }) {
-  const { t, lang } = useI18n();
+function Seo({ path, jsonLdType = 'WebPage' }) {
+  const { t, lang, locale } = useI18n();
+  const meta = getRouteMeta(path);
+  const keys = SEO_KEYS[meta.path];
+  const title = keys ? t(keys[0]) : meta.title;
+  const description = keys ? t(keys[1]) : meta.description;
+  const url = canonicalUrl(path);
+  const ogLocale = lang === 'te' ? 'te_IN' : 'en_IN';
+  const ogLocaleAlternate = lang === 'te' ? 'en_IN' : 'te_IN';
 
   useEffect(() => {
-    const meta = getRouteMeta(path);
-    const keys = SEO_KEYS[meta.path];
-    const title = keys ? t(keys[0]) : meta.title;
-    const description = keys ? t(keys[1]) : meta.description;
-    const url = canonicalUrl(path);
-
     document.title = title;
     upsertMeta('name', 'description', description);
     upsertCanonical(url);
@@ -63,11 +67,27 @@ function Seo({ path }) {
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:type', 'website');
     upsertMeta('property', 'og:site_name', APP_NAME);
-    upsertMeta('property', 'og:locale', lang === 'te' ? 'te_IN' : 'en_IN');
+    upsertMeta('property', 'og:locale', ogLocale);
+    upsertMeta('property', 'og:locale:alternate', ogLocaleAlternate);
+    upsertMeta('property', 'og:image', OG_IMAGE_URL);
+    upsertMeta('property', 'og:image:alt', APP_NAME);
     upsertMeta('name', 'twitter:card', 'summary_large_image');
-  }, [path, t, lang]);
+    upsertMeta('name', 'twitter:title', title);
+    upsertMeta('name', 'twitter:description', description);
+    upsertMeta('name', 'twitter:image', OG_IMAGE_URL);
+  }, [title, description, url, ogLocale, ogLocaleAlternate]);
 
-  return null;
+  return (
+    <JsonLd
+      data={webPageJsonLd({
+        path,
+        title,
+        description,
+        type: jsonLdType,
+        inLanguage: locale,
+      })}
+    />
+  );
 }
 
 export default Seo;

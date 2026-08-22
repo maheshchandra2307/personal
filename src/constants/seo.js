@@ -53,7 +53,7 @@ const STATIC_META = {
   '/privacy-policy': {
     title: 'Privacy Policy – AP Electricity Bill Calculator',
     description:
-      'How this site handles data: what the calculator does and does not store, use of cookies and third-party advertising including Google AdSense, and your choices over personalised ads.',
+      'How this site handles data: what the calculator does and does not store, use of cookies, Google Analytics, and third-party advertising including Google AdSense.',
     priority: '0.4',
   },
   '/terms': {

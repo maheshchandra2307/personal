@@ -7,8 +7,9 @@ import NotFound from './NotFound';
 import { GUIDES, getGuideBySlug } from '../constants/guides';
 import { canonicalUrl } from '../constants/seo';
 import { APP_NAME } from '../constants';
-import { SITE_URL } from '../constants/site';
+import { LOGO_URL, SITE_URL } from '../constants/site';
 import { formatLongDate } from '../utils';
+import { breadcrumbJsonLd } from '../utils/jsonLd';
 import { useI18n } from '../context/AppContext';
 import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
@@ -27,6 +28,7 @@ function buildJsonLd(guide) {
       '@type': 'Organization',
       name: APP_NAME,
       url: SITE_URL,
+      logo: LOGO_URL,
     },
   };
 
@@ -64,7 +66,19 @@ function GuideArticle() {
   return (
     <div className="space-y-8">
       <Seo path={`/guides/${guide.slug}`} />
-      <JsonLd data={buildJsonLd(guide)} />
+      <JsonLd
+        data={[
+          ...[].concat(buildJsonLd(guide)),
+          breadcrumbJsonLd([
+            { name: t('common.home'), path: '/' },
+            { name: t('nav.guides'), path: '/guides' },
+            {
+              name: t(`guides.items.${guide.slug}.title`),
+              path: `/guides/${guide.slug}`,
+            },
+          ]),
+        ]}
+      />
 
       <PageHeader
         breadcrumbs={[

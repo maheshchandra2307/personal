@@ -20,5 +20,5 @@ export function render(url) {
 }
 
 export { getSiteRoutes, canonicalUrl } from './constants/seo';
-export { SITE_URL } from './constants/site';
+export { SITE_URL, OG_IMAGE_URL } from './constants/site';
 export { APP_NAME } from './constants';

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/common/Seo';
+import JsonLd from '../components/content/JsonLd';
 import PageHeader from '../components/content/PageHeader';
 import { GUIDES, GUIDE_CATEGORIES } from '../constants/guides';
 import { TARIFF_YEAR } from '../constants';
 import { formatLongDate } from '../utils';
+import { itemListJsonLd } from '../utils/jsonLd';
 import { useI18n } from '../context/AppContext';
 
 function GuideCard({ guide }) {
@@ -45,6 +47,14 @@ function GuidesIndex() {
   return (
     <div className="space-y-10">
       <Seo path="/guides" />
+      <JsonLd
+        data={itemListJsonLd(
+          GUIDES.map((guide) => ({
+            name: t(`guides.items.${guide.slug}.title`),
+            path: `/guides/${guide.slug}`,
+          }))
+        )}
+      />
 
       <PageHeader
         eyebrow={t('guides.eyebrow')}

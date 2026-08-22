@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import Seo from '../components/common/Seo';
+import JsonLd from '../components/content/JsonLd';
 import PageHeader from '../components/content/PageHeader';
 import Button from '../components/ui/Button';
 import NotFound from './NotFound';
@@ -10,6 +11,7 @@ import {
 } from '../constants/discomProfiles';
 import { DISCOMS } from '../constants/discoms';
 import { TARIFF_YEAR } from '../constants';
+import { breadcrumbJsonLd } from '../utils/jsonLd';
 import { useI18n } from '../context/AppContext';
 import ContentLanguageNote from '../components/common/ContentLanguageNote';
 
@@ -28,6 +30,13 @@ function DiscomDetail() {
   return (
     <div className="space-y-10">
       <Seo path={`/discoms/${profile.slug}`} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: t('common.home'), path: '/' },
+          { name: t('nav.discoms'), path: '/discoms' },
+          { name: profile.acronym, path: `/discoms/${profile.slug}` },
+        ])}
+      />
 
       <PageHeader
         breadcrumbs={[

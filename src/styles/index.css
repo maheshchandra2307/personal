@@ -17,6 +17,18 @@
       'Noto Sans Telugu', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
   }
 
+  /* Telugu vowel signs sit above the em-box; Latin-tight metrics clip them. */
+  html[lang='te'] body {
+    line-height: 1.7;
+  }
+
+  html[lang='te'] h1,
+  html[lang='te'] h2,
+  html[lang='te'] h3 {
+    overflow: visible;
+    padding-block: 0.18em 0.08em;
+  }
+
   body {
     @apply m-0 min-h-screen bg-slate-50 font-sans text-slate-900 antialiased;
   }
@@ -27,6 +39,24 @@
 }
 
 @layer utilities {
+  html[lang='te'] .leading-tight,
+  html[lang='te'] .leading-snug {
+    line-height: 1.5;
+  }
+
+  html[lang='te'] .tracking-tight {
+    letter-spacing: normal;
+  }
+
+  /* background-clip:text shears off Telugu combining marks. */
+  html[lang='te'] .bg-clip-text {
+    background-image: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    color: var(--color-slate-900, #0f172a);
+    -webkit-text-fill-color: var(--color-slate-900, #0f172a);
+  }
+
   @keyframes notice-marquee {
     from {
       transform: translateX(0);

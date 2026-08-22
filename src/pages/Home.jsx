@@ -18,10 +18,11 @@ import { DISCOM_PROFILES } from '../constants/discomProfiles';
 import { SITE_URL } from '../constants/site';
 import { useI18n } from '../context/AppContext';
 import { cn } from '../utils';
+import { webApplicationJsonLd } from '../utils/jsonLd';
 
 function Home() {
   const [activeTab, setActiveTab] = useState('calc');
-  const { t, tList, locale } = useI18n();
+  const { t, tList, locale, lang } = useI18n();
   const faqs = tList('home.faqs');
 
   const structuredData = [
@@ -33,6 +34,7 @@ function Home() {
       inLanguage: locale,
       description: t('seo.homeDesc'),
     },
+    webApplicationJsonLd(t('seo.homeDesc'), locale),
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -49,9 +51,16 @@ function Home() {
       <Seo path="/" />
       <JsonLd data={structuredData} />
 
-      <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50 to-slate-50 px-6 pb-10 pt-14 text-center">
+      <section className="relative overflow-x-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50 to-slate-50 px-6 pb-10 pt-14 text-center">
         <div className="pointer-events-none absolute left-1/2 top-[-100px] h-[400px] w-[600px] -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(37,99,235,0.08)_0%,transparent_70%)]" />
-        <h1 className="font-display relative mx-auto max-w-3xl bg-gradient-to-br from-slate-900 from-30% to-blue-600 bg-clip-text text-[clamp(28px,5vw,48px)] font-bold leading-tight text-transparent">
+        <h1
+          className={cn(
+            'font-display relative mx-auto max-w-3xl text-[clamp(28px,5vw,48px)] font-bold',
+            lang === 'te'
+              ? 'pt-[0.28em] leading-[1.55] text-slate-900'
+              : 'bg-gradient-to-br from-slate-900 from-30% to-blue-600 bg-clip-text leading-tight text-transparent'
+          )}
+        >
           {t('home.heroTitle')}
         </h1>
         <p className="relative mx-auto mt-3 max-w-lg text-[15px] leading-relaxed text-slate-600">

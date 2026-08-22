@@ -85,7 +85,7 @@ function Contact() {
 
   return (
     <div className="space-y-8">
-      <Seo path="/contact" />
+      <Seo path="/contact" jsonLdType="ContactPage" />
 
       <PageHeader
         eyebrow={t('contactPage.eyebrow')}

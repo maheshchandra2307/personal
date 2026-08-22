@@ -54,12 +54,13 @@ const SECTIONS = [
           'IP address, which our hosting provider processes to deliver the page and to protect against abuse.',
           'Browser type and version, operating system and device type.',
           'The page requested, the date and time, and the referring page if any.',
+          'When Google Analytics is configured, aggregate page-view information as described below.',
           'Aggregate performance and error information used to keep the site working.',
         ],
       },
       {
         type: 'p',
-        text: 'The site is hosted on Vercel, which processes this information as part of delivering and securing the service. We do not combine it with anything else, and we do not attempt to identify individual visitors from it.',
+        text: 'The site is hosted on Vercel, which processes this information as part of delivering and securing the service. We do not combine hosting logs with Analytics reports to identify individual visitors.',
       },
     ],
   },
@@ -69,11 +70,34 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: 'We do not set cookies of our own for tracking or profiling. Cookies present on this site come from the third-party services described below, principally advertising.',
+        text: 'We do not set cookies of our own for advertising or profiling. Cookies on this site come from the third-party services described below — Google Analytics when a measurement ID is configured, and advertising.',
       },
       {
         type: 'p',
-        text: 'You can control cookies through your browser settings, including blocking them entirely or deleting existing ones. Blocking cookies does not affect the calculator, which needs none of them to work, though it may affect how advertising is selected.',
+        text: 'You can control cookies through your browser settings, including blocking them entirely or deleting existing ones. Blocking cookies does not affect the calculator, which needs none of them to work, though it may affect analytics and how advertising is selected.',
+      },
+    ],
+  },
+  {
+    id: 'analytics',
+    heading: 'Analytics, including Google Analytics',
+    blocks: [
+      {
+        type: 'p',
+        text: 'When configured, this site uses Google Analytics 4 to understand which pages are visited. That helps us see whether a guide is useful, whether a page is broken, and how people move between the calculator, DISCOM pages and payment links. It is not used to identify you or to build an advertising profile of our own.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Google Analytics may record the pages you view, the referring site, approximate location derived from IP address, and basic device and browser information.',
+          'IP anonymization is enabled in our Analytics configuration.',
+          'This information is processed by Google as described in Google’s own privacy policy. We use it in aggregate, not to identify individual visitors.',
+          'Analytics cookies, when present, are first-party cookies set for this site by the Google Analytics tag. They are not required for the calculator to work.',
+        ],
+      },
+      {
+        type: 'p',
+        text: 'You can opt out of Google Analytics with the Google Analytics opt-out browser add-on, or by blocking cookies for this site in your browser. Opting out does not change how the calculator, guides or payment redirects work.',
       },
     ],
   },
@@ -151,7 +175,7 @@ const SECTIONS = [
       },
       {
         type: 'p',
-        text: `If you would like correspondence you have sent us deleted, write to ${CONTACT_EMAIL} and we will remove it. For data held by advertising or hosting providers, their own policies and controls apply.`,
+        text: `If you would like correspondence you have sent us deleted, write to ${CONTACT_EMAIL} and we will remove it. For data held by advertising, analytics or hosting providers, their own policies and controls apply.`,
       },
     ],
   },

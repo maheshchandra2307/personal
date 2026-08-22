@@ -23,20 +23,27 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
-function buildHead({ title, description, url, siteName }) {
+function buildHead({ title, description, url, siteName, imageUrl }) {
   const safeTitle = escapeHtml(title);
   const safeDescription = escapeHtml(description);
+  const safeImage = escapeHtml(imageUrl);
+  const safeSite = escapeHtml(siteName);
 
   return [
     `<link rel="canonical" href="${escapeHtml(url)}" />`,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:site_name" content="${escapeHtml(siteName)}" />`,
+    `<meta property="og:site_name" content="${safeSite}" />`,
     `<meta property="og:title" content="${safeTitle}" />`,
     `<meta property="og:description" content="${safeDescription}" />`,
     `<meta property="og:url" content="${escapeHtml(url)}" />`,
+    `<meta property="og:locale" content="en_IN" />`,
+    `<meta property="og:locale:alternate" content="te_IN" />`,
+    `<meta property="og:image" content="${safeImage}" />`,
+    `<meta property="og:image:alt" content="${safeSite}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${safeTitle}" />`,
     `<meta name="twitter:description" content="${safeDescription}" />`,
+    `<meta name="twitter:image" content="${safeImage}" />`,
   ].join('\n    ');
 }
 
@@ -88,7 +95,8 @@ function buildSitemap(routes, canonicalUrl, lastmod) {
 
 async function main() {
   const server = await import(pathToFileURL(SERVER_ENTRY).href);
-  const { render, getSiteRoutes, canonicalUrl, APP_NAME } = server;
+  const { render, getSiteRoutes, canonicalUrl, APP_NAME, OG_IMAGE_URL } =
+    server;
 
   const templatePath = path.join(CLIENT_DIR, 'index.html');
   const template = await fs.readFile(templatePath, 'utf8');
@@ -107,6 +115,7 @@ async function main() {
         description: route.description,
         url,
         siteName: APP_NAME,
+        imageUrl: OG_IMAGE_URL,
       }),
     });
 

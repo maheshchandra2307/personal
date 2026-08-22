@@ -554,7 +554,7 @@ export const en = {
       'Contact the AP Electricity Bill Calculator team to report a tariff error, a calculation problem or a broken link. Note that we cannot access your electricity account or resolve billing disputes.',
     privacyTitle: 'Privacy Policy – AP Electricity Bill Calculator',
     privacyDesc:
-      'How this site handles data: what the calculator does and does not store, use of cookies and third-party advertising including Google AdSense, and your choices over personalised ads.',
+      'How this site handles data: what the calculator does and does not store, use of cookies, Google Analytics, and third-party advertising including Google AdSense.',
     termsTitle: 'Terms of Service – AP Electricity Bill Calculator',
     termsDesc:
       'The terms governing use of the AP Electricity Bill Calculator, including acceptable use, intellectual property, third-party links, limitation of liability and changes to these terms.',
