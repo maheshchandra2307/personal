@@ -10,7 +10,10 @@ export const OG_IMAGE_URL = `${SITE_URL}/og-image.png`;
 export const LOGO_URL = `${SITE_URL}/logo.png`;
 
 /** Last review date for legal/editorial pages, ISO format. */
-export const POLICY_UPDATED = '2026-08-22';
+export const POLICY_UPDATED = '2026-08-25';
+
+/** Visible “last updated” date on calculator and tariff pages. */
+export const CONTENT_UPDATED = '2026-08-25';
 
 /** Effective date of the LT tariff schedule bundled with this app. */
 export const TARIFF_EFFECTIVE_DATE = '25 March 2026';

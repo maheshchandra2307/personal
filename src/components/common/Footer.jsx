@@ -1,6 +1,12 @@
 import { FaBolt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { APP_NAME, LEGAL_LINKS, NAV_LINKS, TARIFF_YEAR } from '../../constants';
+import {
+  APP_NAME,
+  LEGAL_LINKS,
+  NAV_LINKS,
+  RESOURCE_LINKS,
+  TARIFF_YEAR,
+} from '../../constants';
 import { CONTACT_EMAIL, DISCOM_HELPLINE } from '../../constants/site';
 import { GUIDES } from '../../constants/guides';
 import { useI18n } from '../../context/AppContext';
@@ -22,7 +28,7 @@ function Footer() {
 
   return (
     <footer className="border-t border-slate-200 bg-slate-900 text-slate-300">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-5 lg:px-8">
         <div>
           <p className="flex items-center gap-2 text-lg font-semibold text-white">
             <FaBolt className="text-amber-500" />
@@ -55,6 +61,21 @@ function Footer() {
                 <Link
                   to={link.path}
                   className="text-sm transition-colors hover:text-white"
+                >
+                  {t(link.labelKey)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </FooterColumn>
+
+        <FooterColumn title={t('footer.calculators')}>
+          <ul className="mt-3 space-y-2">
+            {RESOURCE_LINKS.map((link) => (
+              <li key={link.path}>
+                <Link
+                  to={link.path}
+                  className="text-sm leading-snug transition-colors hover:text-white"
                 >
                   {t(link.labelKey)}
                 </Link>

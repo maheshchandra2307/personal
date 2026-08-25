@@ -288,11 +288,23 @@ function ResultPanel({ result, hasCalculated, onCopy, copyStatus }) {
   );
 }
 
-export default function BillCalculator() {
+export default function BillCalculator({
+  lockedCategory,
+  allowedValues,
+  heading,
+}) {
   const { t } = useI18n();
-  const [category, setCategory] = useState(
-    () => loadSavedState()?.category || ''
-  );
+  const allowed = lockedCategory
+    ? [lockedCategory]
+    : allowedValues || null;
+  const [category, setCategory] = useState(() => {
+    if (lockedCategory) return lockedCategory;
+    const saved = loadSavedState()?.category || '';
+    if (allowed?.length) {
+      return saved && allowed.includes(saved) ? saved : allowed[0];
+    }
+    return saved;
+  });
   const [load, setLoad] = useState(() => loadSavedState()?.load ?? 1);
   const [units, setUnits] = useState(() => loadSavedState()?.units ?? 100);
   const [unitsMode, setUnitsMode] = useState(
@@ -351,6 +363,13 @@ export default function BillCalculator() {
   const loadUnit = conf?.loadUnit || 'kW';
   const hideLoad = HIDE_LOAD_CATEGORIES.includes(category);
   const showSlabPreview = conf?.type === 'slab';
+  const categoryGroups = CATEGORY_OPTIONS.map((group) => ({
+    ...group,
+    options: allowed
+      ? group.options.filter((opt) => allowed.includes(opt.value))
+      : group.options,
+  })).filter((group) => group.options.length > 0);
+  const categoryLocked = Boolean(lockedCategory);
 
   function handleCategoryChange(value) {
     setCategory(value);
@@ -434,7 +453,7 @@ export default function BillCalculator() {
         <div className="flex items-center gap-2.5 border-b border-slate-200 px-6 py-5">
           <span>🧮</span>
           <h2 className="font-display text-[15px] font-semibold text-slate-900">
-            {t('calc.title')}
+            {heading || t('calc.title')}
           </h2>
         </div>
 
@@ -447,12 +466,19 @@ export default function BillCalculator() {
             <FormLabel required>{t('calc.category')}</FormLabel>
             <div className="relative">
               <select
-                className={cn(inputClass, 'appearance-none pr-10')}
+                className={cn(
+                  inputClass,
+                  'appearance-none pr-10',
+                  categoryLocked && 'bg-slate-50'
+                )}
                 value={category}
+                disabled={categoryLocked}
                 onChange={(e) => handleCategoryChange(e.target.value)}
               >
-                <option value="">{t('calc.selectCategory')}</option>
-                {CATEGORY_OPTIONS.map((group) => (
+                {categoryLocked ? null : (
+                  <option value="">{t('calc.selectCategory')}</option>
+                )}
+                {categoryGroups.map((group) => (
                   <optgroup
                     key={group.group}
                     label={t(CATEGORY_GROUP_KEYS[group.group] || group.group)}

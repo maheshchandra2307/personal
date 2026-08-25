@@ -21,7 +21,9 @@ function Navbar() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-amber-600 to-orange-500 text-lg">
             <img
               src="/logo.png"
-              alt="Logo"
+              alt="AP Electricity Bill Calculator"
+              width="36"
+              height="36"
               className="h-full w-full object-contain"
             />
           </div>

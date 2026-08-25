@@ -9,9 +9,9 @@ import { DISCOM_PROFILES } from './discomProfiles';
  */
 const STATIC_META = {
   '/': {
-    title: 'AP Electricity Bill Calculator – APERC FY 2026-27 LT Tariff',
+    title: 'AP Electricity Bill Calculator 2026-27 | Andhra Pradesh',
     description:
-      'Estimate your Andhra Pradesh electricity bill using APERC FY 2026-27 LT tariff rates. Covers domestic, commercial, industrial, agricultural and institutional categories with telescopic slabs and time-of-day rates.',
+      'Calculate your Andhra Pradesh electricity bill using FY 2026-27 APERC tariff slabs. Check domestic, commercial, industrial and other LT categories.',
     priority: '1.0',
   },
   '/pay': {
@@ -67,6 +67,30 @@ const STATIC_META = {
     description:
       'Important limitations of this tool: it is an unofficial estimator not affiliated with APERC or any AP DISCOM, and estimates are not a substitute for your official electricity bill.',
     priority: '0.4',
+  },
+  '/ap-electricity-bill-tariff': {
+    title: 'AP Electricity Tariff Rates FY 2026-27 | APERC LT Slabs',
+    description:
+      'Read Andhra Pradesh LT electricity tariff slabs for FY 2026-27: domestic, commercial, industrial, agricultural and institutional energy and fixed charges with effective date and source.',
+    priority: '0.9',
+  },
+  '/ap-domestic-electricity-bill-calculator': {
+    title: 'AP Domestic Electricity Bill Calculator 2026-27',
+    description:
+      'Estimate an Andhra Pradesh domestic (Cat-I(A)) electricity bill using FY 2026-27 telescopic slabs, fixed charges and worked examples for 50, 100, 200 and 300 units.',
+    priority: '0.9',
+  },
+  '/ap-commercial-electricity-bill-calculator': {
+    title: 'AP Commercial Electricity Bill Calculator 2026-27',
+    description:
+      'Estimate an Andhra Pradesh commercial LT electricity bill using FY 2026-27 rates, load-based fixed charges, minimum monthly charges and common reasons the final bill may differ.',
+    priority: '0.8',
+  },
+  '/faq': {
+    title: 'AP Electricity Bill Calculator FAQ',
+    description:
+      'Answers to common questions about calculating an Andhra Pradesh electricity bill, units, unofficial status, DISCOMs, online payment, subsidies and the FY 2026-27 tariff year.',
+    priority: '0.8',
   },
 };
 

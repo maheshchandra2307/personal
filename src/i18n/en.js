@@ -12,6 +12,10 @@ export const en = {
   },
   nav: {
     calculator: 'Calculator',
+    domesticCalc: 'Domestic calculator',
+    commercialCalc: 'Commercial calculator',
+    tariff: 'Tariff rates',
+    faq: 'FAQ',
     payBill: 'Pay Bill',
     guides: 'Guides',
     discoms: 'DISCOMs',
@@ -31,6 +35,7 @@ export const en = {
       'An independent, unofficial APERC {{year}} bill estimator, tariff reference and payment link helper for Andhra Pradesh consumers. Not affiliated with APERC or any AP DISCOM.',
     helpline: 'DISCOM helpline: {{number}}',
     navigation: 'Navigation',
+    calculators: 'Calculators',
     guides: 'Guides',
     legal: 'Legal',
     copyright:
@@ -219,9 +224,12 @@ export const en = {
     tmp_sub: 'Temporary Supply – Free/Subsidised',
   },
   home: {
-    heroTitle: 'Know Your Exact Electricity Bill',
+    heroTitle: 'AP Electricity Bill Calculator for FY 2026-27',
     heroLead:
-      'Official APERC tariff rates for all LT consumer categories in Andhra Pradesh, effective 25 March 2026. {{year}} rates included.',
+      'Unofficial estimator using published APERC LT tariff rates for Andhra Pradesh, effective 25 March 2026. {{year}} rates included.',
+    intro:
+      'This AP electricity bill calculator estimates Andhra Pradesh LT electricity charges using the FY 2026–27 tariff structure. Select your consumer category, enter monthly units, and view the estimated energy charge, fixed charge, and other applicable components. The result is only an estimate; the final bill may vary because of subsidies, taxes, utility adjustments, meter charges, arrears, or other conditions.',
+    updated: 'Last updated {{date}} · Tariff effective {{tariffDate}}',
     howTitle: 'How this AP electricity bill calculator works',
     howP1:
       'Andhra Pradesh electricity charges for low-tension (LT) consumers are set by the Andhra Pradesh Electricity Regulatory Commission (APERC). For {{year}}, energy charges are applied in slabs based on units consumed, with additional fixed or demand charges depending on the consumer category. This calculator maps your usage inputs to those published LT tariff schedules so you can estimate the energy and fixed portions of a monthly bill before you open your DISCOM statement.',
@@ -239,6 +247,26 @@ export const en = {
     tip4: 'For ToD tariffs, split peak and off-peak units the way your meter records them.',
     tip5: 'After estimating, pay only through official APEPDCL, APCPDCL, or APSPDCL websites linked from the Pay Bill page.',
     faqTitle: 'Frequently asked questions',
+    allFaqs: 'Open the full FAQ page',
+    termsTitle: 'Units, load, fixed charges and slabs',
+    termsP1:
+      'One unit is one kilowatt-hour (kWh): a 1,000-watt appliance running for one hour. Load is the sanctioned or connected capacity of your service in kW (or HP for some agricultural categories) and drives the monthly fixed charge. Slabs are bands of monthly units; under a telescopic tariff each band is priced separately, so only the units above a boundary attract the higher rate.',
+    termsP2:
+      'The calculator estimates energy charges from your units, fixed charges from your load, and customer charges where the schedule specifies them. It does not add electricity duty, meter rent, delayed payment surcharge, arrears or subsidy credits.',
+    diffTitle: 'Why the calculated amount may differ from the final bill',
+    diffP1:
+      'Your DISCOM bill can include items this tool cannot know: subsidies, taxes and duty, meter charges, arrears, provisional-reading adjustments, or a billing period that is not one calendar month. Treat the result as a planning estimate and pay only on official DISCOM portals.',
+    payTitle: 'Pay your AP electricity bill on official DISCOM sites',
+    payLead:
+      'This website never collects payments. Use the official APSPDCL, APCPDCL or APEPDCL payment pages below.',
+    payOn: 'Pay on {{acronym}} official portal',
+    morePages: 'More on this site',
+    linkDomestic: 'Calculate your AP domestic electricity bill',
+    linkCommercial: 'Calculate your AP commercial electricity bill',
+    linkTariff: 'View AP FY 2026–27 tariff slabs',
+    linkUnits: 'Learn how AP electricity units are calculated',
+    linkSpdcl: 'Check APSPDCL payment options and districts',
+    linkAllCategories: 'Open the all-category AP electricity bill calculator',
     learnTitle: 'Learn how AP electricity billing works',
     learnLead:
       'The calculator gives you a number. These guides explain where that number comes from — the arithmetic behind a bill, what each field on your bill means, how the regulator sets rates, and what a saved unit is actually worth to you.',
@@ -251,24 +279,36 @@ export const en = {
     readDisclaimer: 'Read the full disclaimer',
     faqs: [
       {
-        q: 'How do APERC electricity slabs work in Andhra Pradesh?',
-        a: 'APERC LT tariffs use telescopic slabs for most domestic consumers. Your monthly units (kWh) are split across bands—for example the first block of units is billed at a lower energy charge, and higher usage moves into costlier slabs. Fixed/demand charges and other approved surcharges may apply on top of energy charges. This site applies the published APERC FY 2026-27 LT rates so you can see how each slab contributes to an estimate.',
+        q: 'How can I calculate my AP electricity bill?',
+        a: 'Select the LT category printed on your bill, enter monthly units (kWh) and connected load when asked, then calculate. The tool applies the published APERC FY 2026-27 energy, fixed and customer charges. For a household, use the domestic calculator; shops and offices should use the commercial calculator.',
       },
       {
-        q: 'What inputs do I need for an accurate estimate?',
-        a: 'Use your billed units for the month (or the period you want to check), pick the matching LT category (domestic, commercial, industry, agriculture, and others), and enter connected load or demand where the tariff requires it. Time-of-Day (ToD) categories need peak/off-peak split if your meter records it. Closer inputs mean a closer estimate—your DISCOM bill remains the final amount.',
+        q: 'What does one unit of electricity mean?',
+        a: 'One unit is one kilowatt-hour (kWh). It is the energy used by a 1,000-watt appliance running for one hour. Your bill’s units are usually present meter reading minus previous meter reading.',
       },
       {
-        q: 'Why might my estimate differ from the DISCOM bill?',
-        a: 'Official bills can include meter rent, electricity duty, subsidies, rebates, delayed payment surcharge, arrears, or temporary adjustments that are not always visible in a simple tariff table. Category mis-selection or wrong unit totals also change the result. Treat this tool as a planning estimate, then pay only on the official APEPDCL, APCPDCL, or APSPDCL portals.',
+        q: 'Is this an official AP electricity calculator?',
+        a: 'No. This is an independent, unofficial estimator. It is not affiliated with APERC, APSPDCL, APCPDCL, APEPDCL or the Government of Andhra Pradesh. Always confirm rates and pay dues on official DISCOM websites.',
+      },
+      {
+        q: 'Why is my actual bill different?',
+        a: 'Official bills can include electricity duty, meter rent, subsidies, rebates, delayed payment surcharge, arrears, or adjustments for estimated readings. A wrong category, load or billing-period length also changes the result. Compare line items, not only the total.',
       },
       {
         q: 'Which DISCOM serves my district?',
-        a: 'Andhra Pradesh is served by APEPDCL (eastern districts), APCPDCL (central), and APSPDCL (southern). Use the Pay Bill page on this site to find your district and open the matching official payment link. Helplines and service-number tips are also available in the help chat.',
+        a: 'Andhra Pradesh is served by APEPDCL (eastern districts), APCPDCL (central) and APSPDCL (southern). Use the Pay Bill page to find your district, or open the APSPDCL, APCPDCL and APEPDCL reference pages.',
       },
       {
-        q: 'Is this an official APERC or government website?',
-        a: 'No. This is an independent helper that mirrors published APERC LT tariff schedules for FY 2026-27. It is not affiliated with APERC, AP DISCOMs, or the Government of Andhra Pradesh. Always confirm rates and pay dues on official sources.',
+        q: 'How do I pay my AP electricity bill online?',
+        a: 'Open your DISCOM’s official payment page from this site’s Pay Bill section, enter your 13-digit service number, verify the amount and pay by UPI, net banking or card. Payments never happen on this website.',
+      },
+      {
+        q: 'Does the calculator include subsidies and arrears?',
+        a: 'No. Subsidies, arrears, electricity duty and most miscellaneous charges are account-specific and appear only on the official bill. The estimate covers published energy, fixed and customer charges for the selected LT category.',
+      },
+      {
+        q: 'What tariff year is used?',
+        a: 'This site uses the APERC LT retail supply schedule for FY 2026-27, effective 25 March 2026 as transcribed for this app. If a later order changes rates, the official tariff order and your DISCOM bill take precedence.',
       },
     ],
   },
@@ -307,6 +347,9 @@ export const en = {
     back: 'Back to calculator',
     browse: 'Browse guides',
     calc: 'Bill calculator',
+    domestic: 'Domestic calculator',
+    tariff: 'Tariff rates',
+    faq: 'FAQ',
     guides: 'Guides',
     discoms: 'AP DISCOMs',
     pay: 'Pay bill links',
@@ -531,9 +574,9 @@ export const en = {
       'Important limitations of this tool: it is an unofficial estimator, not affiliated with APERC or any AP DISCOM.',
   },
   seo: {
-    homeTitle: 'AP Electricity Bill Calculator – APERC FY 2026-27 LT Tariff',
+    homeTitle: 'AP Electricity Bill Calculator 2026-27 | Andhra Pradesh',
     homeDesc:
-      'Estimate your Andhra Pradesh electricity bill using APERC FY 2026-27 LT tariff rates. Covers domestic, commercial, industrial, agricultural and institutional categories with telescopic slabs and time-of-day rates.',
+      'Calculate your Andhra Pradesh electricity bill using FY 2026-27 APERC tariff slabs. Check domestic, commercial, industrial and other LT categories.',
     payTitle: 'Pay AP Electricity Bill Online – Official DISCOM Links',
     payDesc:
       'Find your Andhra Pradesh DISCOM by district and open its official payment page. Unofficial redirect helper for APSPDCL, APCPDCL and APEPDCL, with helplines and payment steps.',
@@ -561,6 +604,125 @@ export const en = {
     disclaimerTitle: 'Disclaimer – AP Electricity Bill Calculator',
     disclaimerDesc:
       'Important limitations of this tool: it is an unofficial estimator not affiliated with APERC or any AP DISCOM, and estimates are not a substitute for your official electricity bill.',
+    tariffTitle: 'AP Electricity Tariff Rates FY 2026-27 | APERC LT Slabs',
+    tariffDesc:
+      'Read Andhra Pradesh LT electricity tariff slabs for FY 2026-27: domestic, commercial, industrial, agricultural and institutional energy and fixed charges with effective date and source.',
+    domesticTitle: 'AP Domestic Electricity Bill Calculator 2026-27',
+    domesticDesc:
+      'Estimate an Andhra Pradesh domestic (Cat-I(A)) electricity bill using FY 2026-27 telescopic slabs, fixed charges and worked examples for 50, 100, 200 and 300 units.',
+    commercialTitle: 'AP Commercial Electricity Bill Calculator 2026-27',
+    commercialDesc:
+      'Estimate an Andhra Pradesh commercial LT electricity bill using FY 2026-27 rates, load-based fixed charges, minimum monthly charges and common reasons the final bill may differ.',
+    faqTitle: 'AP Electricity Bill Calculator FAQ',
+    faqDesc:
+      'Answers to common questions about calculating an Andhra Pradesh electricity bill, units, unofficial status, DISCOMs, online payment, subsidies and the FY 2026-27 tariff year.',
+  },
+  examples: {
+    units: 'Monthly units',
+    energy: 'Energy charge',
+    fixed: 'Fixed / minimum',
+    customer: 'Customer charge',
+    total: 'Estimated total',
+  },
+  pages: {
+    domestic: {
+      eyebrow: 'Domestic · Cat-I(A)',
+      title: 'AP Domestic Electricity Bill Calculator',
+      lead: 'Estimate a household LT bill in Andhra Pradesh using published {{year}} telescopic slabs, load-based fixed charges and customer charges.',
+      calcHeading: 'Domestic bill calculator',
+      slabsTitle: 'Domestic slab rates',
+      slabsP1:
+        'Cat-I(A) domestic supply uses telescopic energy rates from ₹1.90 per unit for the first 30 units up to ₹9.75 per unit above 400 units. Customer charges step up with total monthly consumption (₹25 to ₹55).',
+      slabsP2:
+        'Crossing a slab boundary does not reprice units already billed in cheaper bands. Only the extra units in the higher band attract the higher energy rate.',
+      teleTitle: 'Telescopic billing',
+      teleP1:
+        'Telescopic billing means your units are sliced across the slab table. A 200-unit household still pays ₹1.90 on the first 30 units. That is why multiplying all units by the top-band rate overstates a domestic bill.',
+      fixedTitle: 'Fixed charges',
+      fixedP1:
+        'The domestic fixed charge is ₹10 per kW of sanctioned or connected load per month, and ₹75 per kW when load exceeds 75 kW. Fixed charges apply even in a month with little or no consumption.',
+      examplesTitle: 'Example calculations (1 kW load)',
+      examplesLead:
+        'These estimates use Cat-I(A) FY 2026-27 rates, 1 kW load, and no duty, meter rent, subsidy or arrears.',
+      examplesNote:
+        'Figures are unofficial estimates for a one-month period. Your official DISCOM bill remains authoritative.',
+      readTitle: 'How to read the result',
+      readP1:
+        'Compare energy, fixed and customer charges separately with the matching lines on your bill. A small gap is often duty or meter rent. A large gap usually means a different category, load, or billing-period length.',
+      source:
+        'Rates follow the APERC LT schedule effective {{date}}. Unofficial transcription.',
+      faqs: [
+        {
+          q: 'Are domestic slabs telescopic in Andhra Pradesh?',
+          a: 'Yes. Each slab rate applies only to units in that band. Higher consumption does not reprice the cheaper units you already used.',
+        },
+        {
+          q: 'Does this domestic calculator include subsidy?',
+          a: 'No. State subsidies and arrears are not modelled. Enter billed units and load to estimate published energy, fixed and customer charges only.',
+        },
+      ],
+    },
+    commercial: {
+      eyebrow: 'Commercial LT',
+      title: 'AP Commercial Electricity Bill Calculator',
+      lead: 'Estimate commercial LT charges in Andhra Pradesh for shops, offices and related Cat-II categories using {{year}} published rates.',
+      calcHeading: 'Commercial bill calculator',
+      catTitle: 'Commercial categories',
+      catP1:
+        'Most shops, offices, clinics and hospitals are billed under Cat-II(A)(i). Advertising hoardings, function halls, EV charging and green-power supply have their own Cat-II sub-categories with different rates. Use the category printed on your bill.',
+      loadTitle: 'Load and demand-related inputs',
+      loadP1:
+        'Cat-II(A)(i) fixed charge is ₹75 per kW per month (₹275 per kW above 75 kW). Single-phase services have a ₹65 minimum monthly charge; three-phase services have ₹200. Commercial consumers at 10 kW and above may also see time-of-day adjustments.',
+      logicTitle: 'Slab and non-telescopic logic',
+      logicP1:
+        'Cat-II(A)(i) energy charges are applied telescopically across unit bands from ₹5.40 to ₹9.95 per kWh. Other commercial sub-categories are often flat-rate (one rate for all units) with a minimum bill. If a minimum charge applies, the calculator shows it as an extra so the total is not below the published floor.',
+      examplesTitle: 'Example calculations (Cat-II(A)(i), 1 kW, single phase)',
+      examplesLead:
+        'These examples use the main commercial slab category, 1 kW load and single-phase minimum charge rules. They exclude duty, meter rent, ToD adjustments, subsidy and arrears.',
+      examplesNote:
+        'Change phase, load or sub-category in the form for a closer estimate. Official bills remain authoritative.',
+      diffTitle: 'Why the commercial bill may differ',
+      diffP1:
+        'Common gaps include ToD peak/off-peak splits, a three-phase minimum, load above 75 kW, electricity duty, delayed payment surcharge, and a category that is not Cat-II(A)(i). Match the category code and load on the bill before assuming the rate table is wrong.',
+      source:
+        'Rates follow the APERC LT schedule effective {{date}}. Unofficial transcription.',
+      faqs: [
+        {
+          q: 'Is commercial LT in AP billed on a single rate for all units?',
+          a: 'Not for Cat-II(A)(i), which uses telescopic slabs. Advertising hoardings, function halls, EV charging and green power are typically flat-rate categories.',
+        },
+        {
+          q: 'Why does the estimate show an extra amount on low usage?',
+          a: 'Cat-II(A)(i) has a minimum monthly charge (₹65 single phase, ₹200 three phase). If energy plus fixed charges fall below that floor, the difference is added.',
+        },
+      ],
+    },
+    tariff: {
+      eyebrow: 'APERC LT schedule',
+      title: 'AP electricity tariff rates for {{year}}',
+      lead: 'Readable LT energy and fixed charges transcribed from the published Andhra Pradesh tariff schedule, effective {{date}}. This page is unofficial and not a government publication.',
+      meta: 'Updated {{updated}} · Effective {{date}} · Source: APERC',
+      intro:
+        'Use this table to check category, unit range, energy charge and fixed charge. Detailed category notes sit in the sections below. HT connections are outside this schedule.',
+      sourceLine:
+        'Primary source: Andhra Pradesh Electricity Regulatory Commission,',
+      summaryTitle: 'FY 2026-27 LT tariff summary',
+      notes: 'Notes',
+      noteTele: 'Telescopic; customer charge also applies',
+      noteHighLoad: 'Fixed ₹75/kW above 75 kW',
+      noteMin: 'Telescopic; min ₹65/₹200 by phase',
+      noteFlat: 'Flat energy rate; no telescopic slabs',
+      noteInst: 'Institutional; load step above 75 kW',
+      noteAgri: 'Free quota then excess; conditions apply',
+      allUnits: 'All billed units',
+      effective:
+        'Effective date: {{date}}. Unofficial HTML table for search and accessibility; always verify against the tariff order.',
+    },
+    faq: {
+      eyebrow: 'Help',
+      title: 'Frequently asked questions',
+      lead: 'How to estimate an Andhra Pradesh electricity bill, what a unit means, why the official bill can differ, and how to pay through your DISCOM. This calculator is unofficial.',
+    },
   },
   tariff: {
     h: {

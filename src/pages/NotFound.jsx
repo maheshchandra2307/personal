@@ -10,6 +10,12 @@ function NotFound() {
 
   const suggestions = [
     { label: t('notFound.calc'), path: '/' },
+    {
+      label: t('notFound.domestic'),
+      path: '/ap-domestic-electricity-bill-calculator',
+    },
+    { label: t('notFound.tariff'), path: '/ap-electricity-bill-tariff' },
+    { label: t('notFound.faq'), path: '/faq' },
     { label: t('notFound.guides'), path: '/guides' },
     { label: t('notFound.discoms'), path: '/discoms' },
     { label: t('notFound.pay'), path: '/pay' },

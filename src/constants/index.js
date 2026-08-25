@@ -14,6 +14,19 @@ export const NAV_LINKS = [
   { labelKey: 'nav.about', path: '/about' },
 ];
 
+export const RESOURCE_LINKS = [
+  {
+    labelKey: 'nav.domesticCalc',
+    path: '/ap-domestic-electricity-bill-calculator',
+  },
+  {
+    labelKey: 'nav.commercialCalc',
+    path: '/ap-commercial-electricity-bill-calculator',
+  },
+  { labelKey: 'nav.tariff', path: '/ap-electricity-bill-tariff' },
+  { labelKey: 'nav.faq', path: '/faq' },
+];
+
 export const LEGAL_LINKS = [
   { labelKey: 'legal.privacy', path: '/privacy-policy' },
   { labelKey: 'legal.terms', path: '/terms' },

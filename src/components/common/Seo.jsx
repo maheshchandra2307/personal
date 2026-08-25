@@ -17,6 +17,16 @@ const SEO_KEYS = {
   '/privacy-policy': ['seo.privacyTitle', 'seo.privacyDesc'],
   '/terms': ['seo.termsTitle', 'seo.termsDesc'],
   '/disclaimer': ['seo.disclaimerTitle', 'seo.disclaimerDesc'],
+  '/ap-electricity-bill-tariff': ['seo.tariffTitle', 'seo.tariffDesc'],
+  '/ap-domestic-electricity-bill-calculator': [
+    'seo.domesticTitle',
+    'seo.domesticDesc',
+  ],
+  '/ap-commercial-electricity-bill-calculator': [
+    'seo.commercialTitle',
+    'seo.commercialDesc',
+  ],
+  '/faq': ['seo.faqTitle', 'seo.faqDesc'],
 };
 
 function upsertMeta(attribute, key, content) {

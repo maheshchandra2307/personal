@@ -46,8 +46,8 @@ export function webApplicationJsonLd(description, inLanguage) {
     '@type': 'WebApplication',
     name: APP_NAME,
     url: SITE_URL,
-    applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'Any',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
     description,
     offers: {
       '@type': 'Offer',

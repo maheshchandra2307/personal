@@ -3,5 +3,27 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/apcpdcl-bill-calculator",
+      "destination": "/discoms/apcpdcl",
+      "permanent": true
+    },
+    {
+      "source": "/apepdcl-bill-calculator",
+      "destination": "/discoms/apepdcl",
+      "permanent": true
+    },
+    {
+      "source": "/ape-pdcl-bill-calculator",
+      "destination": "/discoms/apepdcl",
+      "permanent": true
+    },
+    {
+      "source": "/apspdcl-bill-calculator",
+      "destination": "/discoms/apspdcl",
+      "permanent": true
+    }
+  ]
 }

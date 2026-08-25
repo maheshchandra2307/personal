@@ -11,14 +11,20 @@ import {
 } from '../components/tariff/TariffPanels';
 import Seo from '../components/common/Seo';
 import JsonLd from '../components/content/JsonLd';
+import FaqSection from '../components/content/FaqSection';
+import OfficialPayLinks from '../components/content/OfficialPayLinks';
 import { CALCULATOR_TABS } from '../constants/tariffs';
 import { APP_NAME, TARIFF_YEAR } from '../constants';
 import { GUIDES } from '../constants/guides';
 import { DISCOM_PROFILES } from '../constants/discomProfiles';
-import { SITE_URL } from '../constants/site';
+import {
+  CONTENT_UPDATED,
+  SITE_URL,
+  TARIFF_EFFECTIVE_DATE,
+} from '../constants/site';
+import { cn, formatLongDate } from '../utils';
 import { useI18n } from '../context/AppContext';
-import { cn } from '../utils';
-import { webApplicationJsonLd } from '../utils/jsonLd';
+import { breadcrumbJsonLd, webApplicationJsonLd } from '../utils/jsonLd';
 
 function Home() {
   const [activeTab, setActiveTab] = useState('calc');
@@ -35,6 +41,7 @@ function Home() {
       description: t('seo.homeDesc'),
     },
     webApplicationJsonLd(t('seo.homeDesc'), locale),
+    breadcrumbJsonLd([{ name: t('common.home'), path: '/' }]),
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -63,8 +70,17 @@ function Home() {
         >
           {t('home.heroTitle')}
         </h1>
-        <p className="relative mx-auto mt-3 max-w-lg text-[15px] leading-relaxed text-slate-600">
+        <p className="relative mx-auto mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600">
           {t('home.heroLead', { year: TARIFF_YEAR })}
+        </p>
+        <p className="relative mx-auto mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600">
+          {t('home.intro')}
+        </p>
+        <p className="relative mt-4 text-[12px] uppercase tracking-wide text-slate-400">
+          {t('home.updated', {
+            date: formatLongDate(CONTENT_UPDATED, locale),
+            tariffDate: TARIFF_EFFECTIVE_DATE,
+          })}
         </p>
       </section>
 
@@ -129,19 +145,106 @@ function Home() {
 
         <section>
           <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
-            {t('home.faqTitle')}
+            {t('home.termsTitle')}
           </h2>
-          <div className="mt-6 space-y-6">
-            {faqs.map((item) => (
-              <div key={item.q}>
-                <h3 className="font-display text-lg font-semibold text-slate-900">
-                  {item.q}
-                </h3>
-                <p className="mt-2">{item.a}</p>
-              </div>
-            ))}
-          </div>
+          <p className="mt-4">{t('home.termsP1')}</p>
+          <p className="mt-3">{t('home.termsP2')}</p>
         </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            {t('home.diffTitle')}
+          </h2>
+          <p className="mt-4">{t('home.diffP1')}</p>
+        </section>
+
+        <FaqSection title={t('home.faqTitle')} items={faqs} />
+        <p>
+          <Link
+            to="/faq"
+            className="font-medium text-amber-700 underline underline-offset-2"
+          >
+            {t('home.allFaqs')}
+          </Link>
+        </p>
+
+        <section>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            {t('home.payTitle')}
+          </h2>
+          <p className="mt-4">{t('home.payLead')}</p>
+          <OfficialPayLinks />
+        </section>
+
+        <nav aria-label={t('home.morePages')}>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            {t('home.morePages')}
+          </h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5">
+            <li>
+              <Link
+                to="/ap-domestic-electricity-bill-calculator"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('home.linkDomestic')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/ap-commercial-electricity-bill-calculator"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('home.linkCommercial')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/ap-electricity-bill-tariff"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('home.linkTariff')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/guides/how-ap-electricity-bills-are-calculated"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('home.linkUnits')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/discoms/apspdcl"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('home.linkSpdcl')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('nav.about')}
+              </Link>
+              {' · '}
+              <Link
+                to="/contact"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('legal.contact')}
+              </Link>
+              {' · '}
+              <Link
+                to="/disclaimer"
+                className="font-medium text-amber-700 underline underline-offset-2"
+              >
+                {t('legal.disclaimer')}
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </article>
 
       <section className="border-t border-slate-200 bg-slate-50 px-6 py-12">
