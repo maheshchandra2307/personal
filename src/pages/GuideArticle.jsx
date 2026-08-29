@@ -30,6 +30,11 @@ function buildJsonLd(guide) {
       url: SITE_URL,
       logo: LOGO_URL,
     },
+    author: {
+      '@type': 'Organization',
+      name: APP_NAME,
+      url: SITE_URL,
+    },
   };
 
   if (!guide.faqs?.length) {
@@ -92,7 +97,7 @@ function GuideArticle() {
         eyebrow={t(`guides.cat.${guide.category}`)}
         title={t(`guides.items.${guide.slug}.title`)}
         lead={guide.intro}
-        meta={`${t(`guides.items.${guide.slug}.readingTime`)} · ${t('common.updated', { date: formatLongDate(guide.updated, locale) })}`}
+        meta={`${t(`guides.items.${guide.slug}.readingTime`)} · ${t('guides.author')} · ${t('common.updated', { date: formatLongDate(guide.updated, locale) })}`}
       />
 
       <ContentLanguageNote />

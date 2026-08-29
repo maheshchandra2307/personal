@@ -7,7 +7,7 @@ import {
   RESOURCE_LINKS,
   TARIFF_YEAR,
 } from '../../constants';
-import { CONTACT_EMAIL, DISCOM_HELPLINE } from '../../constants/site';
+import { CONTACT_EMAIL, DISCOM_HELPLINE, SITE_URL } from '../../constants/site';
 import { GUIDES } from '../../constants/guides';
 import { useI18n } from '../../context/AppContext';
 
@@ -111,6 +111,22 @@ function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                to="/privacy-policy#cookies"
+                className="text-sm transition-colors hover:text-white"
+              >
+                {t('cookies.footerLink')}
+              </Link>
+            </li>
+            <li>
+              <a
+                href={`${SITE_URL}/sitemap.xml`}
+                className="text-sm transition-colors hover:text-white"
+              >
+                {t('footer.sitemap')}
+              </a>
+            </li>
           </ul>
         </FooterColumn>
       </div>

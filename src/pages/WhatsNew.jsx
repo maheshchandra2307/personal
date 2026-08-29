@@ -137,6 +137,29 @@ function WhatsNew() {
           </a>
         </p>
       </section>
+
+      <article className="max-w-3xl space-y-6 text-[15px] leading-relaxed text-slate-600">
+        <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+          {t('whatsNew.howTitle')}
+        </h2>
+        <p>{t('whatsNew.howP1')}</p>
+        <p>{t('whatsNew.howP2')}</p>
+        <p>{t('whatsNew.howP3')}</p>
+        <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+          {t('whatsNew.billTitle')}
+        </h2>
+        <p>{t('whatsNew.billP1')}</p>
+        <p>{t('whatsNew.billP2')}</p>
+        <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+          {t('whatsNew.applyTitle')}
+        </h2>
+        <ol className="list-decimal space-y-2.5 pl-5">
+          <li>{t('whatsNew.apply1')}</li>
+          <li>{t('whatsNew.apply2')}</li>
+          <li>{t('whatsNew.apply3')}</li>
+        </ol>
+        <p>{t('whatsNew.unofficial')}</p>
+      </article>
     </div>
   );
 }

@@ -9,6 +9,8 @@ import { useI18n } from '../context/AppContext';
 import {
   CONTACT_EMAIL,
   POLICY_UPDATED,
+  PUBLISHER_LOCATION,
+  SITE_DOMAIN,
   TARIFF_EFFECTIVE_DATE,
 } from '../constants/site';
 import { formatLongDate } from '../utils';
@@ -39,7 +41,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: 'The site is built and maintained by an independent developer based in India, as a personal project rather than on behalf of any company or utility. There is no editorial team and no commercial relationship with any electricity distribution company, equipment vendor or solar installer.',
+        text: `The site is built and maintained by an independent publisher based in ${PUBLISHER_LOCATION}, as a personal project rather than on behalf of any company or utility. The publisher owns and controls the domain ${SITE_DOMAIN}, can change the content of every page, and is the person AdSense and search engines should treat as the site owner. There is no editorial team and no commercial relationship with any electricity distribution company, equipment vendor or solar installer.`,
       },
       {
         type: 'p',

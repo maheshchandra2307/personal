@@ -33,7 +33,6 @@ function BotIcon({ className }) {
 export default function HelpChat() {
   const { t, lang } = useI18n();
   const [open, setOpen] = useState(false);
-  const [showBadge, setShowBadge] = useState(true);
   const [input, setInput] = useState('');
   const [chatLang, setChatLang] = useState(lang);
   const [messages, setMessages] = useState(() => [
@@ -54,11 +53,7 @@ export default function HelpChat() {
   }, [messages, open]);
 
   function toggleOpen() {
-    setOpen((prev) => {
-      const next = !prev;
-      if (next) setShowBadge(false);
-      return next;
-    });
+    setOpen((prev) => !prev);
   }
 
   function sendMessage(displayText, matchText = displayText) {
@@ -103,11 +98,6 @@ export default function HelpChat() {
           <>
             <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15">
               <BotIcon className="h-[22px] w-[22px]" />
-              {showBadge ? (
-                <span className="absolute -right-0.5 -top-0.5 flex h-[16px] w-[16px] items-center justify-center rounded-full border-2 border-[#0a3d62] bg-red-500 text-[9px] font-bold">
-                  1
-                </span>
-              ) : null}
             </span>
             <span className="text-left leading-tight">
               <span className="block text-[13px] font-bold tracking-wide">

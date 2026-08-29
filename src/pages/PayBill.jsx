@@ -44,6 +44,29 @@ function PayBill() {
           {t('pay.selectDiscom')}
         </p>
         <DiscomCards />
+
+        <article className="mx-auto mt-12 max-w-3xl space-y-6 text-[15px] leading-relaxed text-slate-600">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            {t('pay.guideTitle')}
+          </h2>
+          <p>{t('pay.guideP1')}</p>
+          <p>{t('pay.guideP2')}</p>
+          <ol className="list-decimal space-y-2.5 pl-5">
+            <li>{t('pay.step1')}</li>
+            <li>{t('pay.step2')}</li>
+            <li>{t('pay.step3')}</li>
+            <li>{t('pay.step4')}</li>
+            <li>{t('pay.step5')}</li>
+          </ol>
+          <h3 className="font-display text-lg font-semibold text-slate-900">
+            {t('pay.fraudTitle')}
+          </h3>
+          <p>{t('pay.fraudP1')}</p>
+          <h3 className="font-display text-lg font-semibold text-slate-900">
+            {t('pay.lateTitle')}
+          </h3>
+          <p>{t('pay.lateP1')}</p>
+        </article>
       </div>
 
       <div className="border-t border-blue-100 bg-[#f0f8ff] px-6 py-[18px] text-center">

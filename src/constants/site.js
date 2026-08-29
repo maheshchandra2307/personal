@@ -4,13 +4,15 @@ export const SITE_URL = 'https://apelectricitybillcalculator.in';
 export const SITE_DOMAIN = 'apelectricitybillcalculator.in';
 export const CONTACT_EMAIL = 'jaswanthkom321@gmail.com';
 export const CONTACT_RESPONSE_TIME = '2–3 working days';
+export const ADSENSE_CLIENT = 'ca-pub-8653006937763259';
+export const PUBLISHER_LOCATION = 'Andhra Pradesh, India';
 
 /** Absolute URL for Open Graph / Twitter share previews. */
 export const OG_IMAGE_URL = `${SITE_URL}/og-image.png`;
 export const LOGO_URL = `${SITE_URL}/logo.png`;
 
 /** Last review date for legal/editorial pages, ISO format. */
-export const POLICY_UPDATED = '2026-08-25';
+export const POLICY_UPDATED = '2026-08-29';
 
 /** Visible “last updated” date on calculator and tariff pages. */
 export const CONTENT_UPDATED = '2026-08-25';

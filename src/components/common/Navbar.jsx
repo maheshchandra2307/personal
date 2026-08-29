@@ -46,7 +46,7 @@ function Navbar() {
                   end={link.path === '/'}
                   className={({ isActive }) =>
                     cn(
-                      'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                      'rounded-lg px-2.5 py-2 text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-amber-50 text-amber-700'
                         : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'

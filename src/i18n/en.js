@@ -21,6 +21,7 @@ export const en = {
     discoms: 'DISCOMs',
     whatsNew: "What's New",
     about: 'About',
+    skipToContent: 'Skip to main content',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },
@@ -30,6 +31,12 @@ export const en = {
     disclaimer: 'Disclaimer',
     contact: 'Contact Us',
   },
+  cookies: {
+    title: 'Cookies and advertising',
+    body: 'This site uses cookies from Google AdSense (and Google Analytics when configured) to serve and measure ads. The calculator itself does not need cookies. Read the full details in our',
+    ok: 'OK',
+    footerLink: 'Cookies',
+  },
   footer: {
     blurb:
       'An independent, unofficial APERC {{year}} bill estimator, tariff reference and payment link helper for Andhra Pradesh consumers. Not affiliated with APERC or any AP DISCOM.',
@@ -38,6 +45,7 @@ export const en = {
     calculators: 'Calculators',
     guides: 'Guides',
     legal: 'Legal',
+    sitemap: 'Sitemap',
     copyright:
       '© {{year}} {{name}}. Estimates only — your official DISCOM bill is the authoritative amount. Not affiliated with APERC, APSPDCL, APCPDCL, APEPDCL or the Government of Andhra Pradesh.',
   },
@@ -340,6 +348,27 @@ export const en = {
     goOfficial: 'Go to {{acronym}} Official Site',
     opensTab: 'Opens {{host}} in a new tab',
     payAria: 'Go to official {{acronym}} bill payment site',
+    guideTitle: 'How to pay an AP electricity bill online',
+    guideP1:
+      'Andhra Pradesh electricity bills are paid on the distribution company’s own website or its authorised payment gateway — never on this site. The cards above only open the official page so you can finish the payment where your DISCOM actually collects money.',
+    guideP2:
+      'You need the 13-digit service number printed on your latest bill (often labelled Service No. or Unique Service Connection number). Keep a payment receipt. It is the practical answer if an arrear appears later on a bill you believe you have already settled.',
+    step1:
+      'Identify your DISCOM (APEPDCL, APCPDCL or APSPDCL) from the district on your bill, or type the district into the finder on this page.',
+    step2:
+      'Open the official payment page from the matching card. Check that the address bar shows the DISCOM’s own domain or its named gateway before you type anything.',
+    step3:
+      'Enter the service number, complete the captcha if asked, and wait for the billed amount to appear. Confirm the name and address match your connection.',
+    step4:
+      'Pay with UPI, net banking or card on that official page. This site never sees the amount, the card number, or an OTP.',
+    step5:
+      'Save the receipt. Pay within about 14–15 days of the bill date to avoid delayed payment surcharge on many domestic and small LT services (₹25 a month in the current schedule).',
+    fraudTitle: 'Do not pay through random links',
+    fraudP1:
+      'Messages that threaten immediate disconnection unless you tap a WhatsApp or SMS link, install an app, or share an OTP are a common fraud. A DISCOM will not ask for card details or OTPs by phone. If you are unsure, call 1912 and pay only from the DISCOM website you opened yourself.',
+    lateTitle: 'What this page cannot do',
+    lateP1:
+      'We cannot look up your bill, confirm a payment, reverse a surcharge, or change a tariff category. Those actions exist only inside the DISCOM’s systems. Use this page to reach the right official site; use 1912 or your section office for anything about the account itself.',
   },
   notFound: {
     title: 'Page not found',
@@ -383,6 +412,7 @@ export const en = {
     onThisPage: 'On this page',
     faqs: 'Frequently asked questions',
     continue: 'Continue reading',
+    author: 'By the AP Electricity Bill Calculator editorial',
     tryNumbers:
       'Want to try these numbers on your own bill? Open the calculator. This guide is general explanatory material, not professional advice — see our disclaimer.',
     cat: {
@@ -532,6 +562,27 @@ export const en = {
       'The goal includes up to 300 units of free electricity every month for covered households.',
     footnote:
       'This page is an informational highlight only. Applications, eligibility, and subsidies are handled on the official site:',
+    howTitle: 'What the scheme actually changes on a household bill',
+    howP1:
+      'PM Surya Ghar: Muft Bijli Yojana is a central rooftop-solar programme. It is not a DISCOM tariff change and it does not rewrite the APERC slab table used by this calculator. What it can change is how many units you buy from the grid. Electricity you generate and use yourself is electricity that never appears as billed units.',
+    howP2:
+      'The public description of the scheme includes a goal of up to 300 units of free electricity a month for covered households, with subsidy support for residential rooftop systems applied through the official national portal. Eligibility, capacity, vendor empanelment and metering (net or gross) are decided on that portal and by your DISCOM — not by this website.',
+    howP3:
+      'Rooftop solar also sits under the APERC other-charges schedule. The FY 2026-27 schedule used here lists a grid support charge for rooftop solar consumers. That line will not appear in a simple units-and-load estimate, which is one reason a solar household’s official bill can still differ from the calculator even when energy charges fall.',
+    billTitle: 'How to use this site if you are considering solar',
+    billP1:
+      'First estimate your current LT bill from a recent month of units and sanctioned load. That gives you a baseline. Then look at which domestic slab your units currently reach: a saved grid unit is worth your marginal slab rate, not the average rate on the bill. Households already in the upper domestic bands see a much larger rupee effect from each displaced unit than households sitting in the first two slabs.',
+    billP2:
+      'The longer guide on reducing an AP electricity bill walks through that arithmetic, including the grid support charge and why oversizing a system to export power is often a poor fit. Use the official portal for applications. Treat any installer who asks you to pay through this website as a warning sign — we never collect money.',
+    applyTitle: 'Where to apply (and what we do not handle)',
+    apply1:
+      'Open the official portal at pmsuryaghar.gov.in and use an empanelled vendor. Approval, metering and inspection run through your DISCOM.',
+    apply2:
+      'Size the system against your own consumption pattern, not only against roof area.',
+    apply3:
+      'Keep using official DISCOM channels for the electricity bill itself. Solar does not move your account onto this site.',
+    unofficial:
+      'This page is independent commentary for AP consumers. It is not an application form, not a government page, and not a recommendation to buy any particular system.',
   },
   aboutPage: {
     eyebrow: 'About',

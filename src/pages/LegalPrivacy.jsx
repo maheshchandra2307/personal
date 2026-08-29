@@ -70,7 +70,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: 'We do not set cookies of our own for advertising or profiling. Cookies on this site come from the third-party services described below — Google Analytics when a measurement ID is configured, and advertising.',
+        text: 'We do not set cookies of our own for advertising or profiling. Cookies on this site come from the third-party services described below — Google Analytics when a measurement ID is configured, and Google AdSense advertising. The language switcher stores your language choice in your browser’s local storage so the site can reopen in the same language; that value never leaves your device.',
       },
       {
         type: 'p',
@@ -113,9 +113,10 @@ const SECTIONS = [
         type: 'ul',
         items: [
           'Google, as a third-party vendor, uses cookies to serve ads on this site.',
-          'Google’s use of advertising cookies enables it and its partners to serve ads based on your visits to this site and other sites on the internet.',
+          'Google’s use of advertising cookies, including the DoubleClick DART cookie, enables it and its partners to serve ads based on your visits to this site and other sites on the internet.',
           'Third-party vendors and ad networks may also serve advertisements and use cookies, web beacons or similar technologies to measure the effectiveness of their advertisements and to personalise the advertising content you see.',
           'These vendors may receive information including your IP address, browser and device characteristics, and the pages you view on this site. We do not receive that information in identifiable form and have no access to their cookies.',
+          'Google’s own explanation of how advertising cookies work is at policies.google.com/technologies/ads.',
         ],
       },
       {
@@ -127,6 +128,7 @@ const SECTIONS = [
         items: [
           'You can opt out of personalised advertising by visiting Google’s Ads Settings at adssettings.google.com.',
           'You can opt out of some third-party vendors’ use of cookies for personalised advertising at optout.aboutads.info.',
+          'You can also opt out of some network advertising through the Network Advertising Initiative at optout.networkadvertising.org.',
           'Your browser’s settings allow you to block or delete advertising cookies directly.',
         ],
       },

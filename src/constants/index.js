@@ -12,6 +12,7 @@ export const NAV_LINKS = [
   { labelKey: 'nav.discoms', path: '/discoms' },
   { labelKey: 'nav.whatsNew', path: '/whats-new' },
   { labelKey: 'nav.about', path: '/about' },
+  { labelKey: 'legal.contact', path: '/contact' },
 ];
 
 export const RESOURCE_LINKS = [

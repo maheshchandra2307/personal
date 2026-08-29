@@ -1,3 +1,10 @@
+# Allow search engines and AdSense crawlers to read the full site.
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Google-Display-Ads-Bot
+Allow: /
+
 User-agent: *
 Allow: /
 
